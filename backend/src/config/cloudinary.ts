@@ -31,4 +31,22 @@ export const deleteFromCloudinary = async (publicId: string): Promise<void> => {
   await cloudinary.uploader.destroy(publicId);
 };
 
+/**
+ * Transforms raw Cloudinary image URLs into auto-compressed WebP/AVIF images
+ * with dynamic width/height constraints for optimized mobile & desktop performance.
+ */
+export const getOptimizedImageUrl = (
+  url: string,
+  options: { width?: number; height?: number; crop?: string } = {}
+): string => {
+  if (!url || !url.includes('cloudinary.com')) return url;
+  const transformations = ['f_auto', 'q_auto'];
+  if (options.width) transformations.push(`w_${options.width}`);
+  if (options.height) transformations.push(`h_${options.height}`);
+  if (options.crop) transformations.push(`c_${options.crop}`);
+
+  const transformStr = transformations.join(',');
+  return url.replace('/upload/', `/upload/${transformStr}/`);
+};
+
 export default cloudinary;

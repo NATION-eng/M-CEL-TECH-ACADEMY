@@ -181,9 +181,27 @@ const start = async (): Promise<void> => {
   await seedSuperAdmin();
   await seedDefaultAccounts();
   await seedAcademyStructure();
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`🚀 Masterview API running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
   });
+
+  const handleShutdown = async (signal: string) => {
+    console.log(`\n🛑 Received ${signal}. Starting graceful shutdown...`);
+    server.close(async () => {
+      try {
+        const { disconnectDB } = await import('./config/database');
+        await disconnectDB();
+        console.log('✅ Server and database connections closed cleanly.');
+        process.exit(0);
+      } catch (err) {
+        console.error('❌ Error during shutdown:', err);
+        process.exit(1);
+      }
+    });
+  };
+
+  process.on('SIGTERM', () => handleShutdown('SIGTERM'));
+  process.on('SIGINT', () => handleShutdown('SIGINT'));
 };
 
 start().catch((err) => {

@@ -28,6 +28,9 @@ export const connectDB = async (): Promise<void> => {
 
   await mongoose.connect(uri, {
     serverSelectionTimeoutMS: 10000, // fail fast instead of Mongoose's 30s default
+    maxPoolSize: 50,                // maintain up to 50 socket connections
+    minPoolSize: 5,                 // keep at least 5 connections ready
+    socketTimeoutMS: 45000,          // close sockets after 45s of inactivity
   });
 };
 
