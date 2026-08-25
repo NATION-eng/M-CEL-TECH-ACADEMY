@@ -20,14 +20,32 @@ export const errorHandler = (
   if (err.name === 'CastError') {
     statusCode = 400;
     message = 'Invalid ID format.';
-  }
-  if (err.code === 11000 && err.keyValue) {
+  } else if (err.code === 11000 && err.keyValue) {
     statusCode = 409;
     const field = Object.keys(err.keyValue)[0];
     message = `A record with this ${field} already exists.`;
-  }
-  if (err.name === 'ValidationError') {
+  } else if (err.name === 'ValidationError' && (err as any).errors) {
     statusCode = 400;
+    const messages = Object.values((err as any).errors).map((e: any) => e.message);
+    message = messages.join(', ') || 'Validation error.';
+  } else if (err.name === 'JsonWebTokenError') {
+    statusCode = 401;
+    message = 'Invalid authentication token. Please sign in again.';
+  } else if (err.name === 'TokenExpiredError') {
+    statusCode = 401;
+    message = 'Session expired. Please sign in again.';
+  } else if (err.name === 'MulterError') {
+    statusCode = 400;
+    if ((err as any).code === 'LIMIT_FILE_SIZE') {
+      message = 'Uploaded file is too large. Documents must be ≤15MB and media files ≤500MB.';
+    } else if ((err as any).code === 'LIMIT_UNEXPECTED_FILE') {
+      message = 'Unexpected file field encountered during upload.';
+    } else {
+      message = (err as any).message || 'File upload error.';
+    }
+  } else if (err instanceof SyntaxError && (err as any).status === 400 && 'body' in err) {
+    statusCode = 400;
+    message = 'Malformed JSON in request body.';
   }
 
   if (process.env.NODE_ENV === 'development') {

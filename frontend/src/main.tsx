@@ -9,7 +9,19 @@ import './index.css'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { ConfirmProvider } from './components/ConfirmDialog'
 
-const qc = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 5*60*1000 } } })
+const qc = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: (failureCount, error: any) => {
+        const status = error?.response?.status
+        // Never retry client errors (401, 402, 403, 404, 422)
+        if (status && status >= 400 && status < 500) return false
+        return failureCount < 1
+      },
+      staleTime: 5 * 60 * 1000,
+    },
+  },
+})
 const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID as string | undefined
 
 // Renders children as-is when no Client ID is configured, so the app (and the

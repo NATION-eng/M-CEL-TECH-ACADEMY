@@ -10,7 +10,10 @@ api.interceptors.request.use(cfg => {
 })
 
 api.interceptors.response.use(r => r, async err => {
-  const orig = err.config
+  const orig = err?.config || {}
+  const url = orig.url || ''
+  const isAuthEndpoint = url.includes('/auth/login') || url.includes('/auth/register') || url.includes('/auth/refresh') || url.includes('/auth/forgot-password') || url.includes('/auth/reset-password')
+
   if (err.response?.status === 402 && err.response?.data?.paymentRequired) {
     // Overdue balance — hard-lock the UI to the payment screen. Store the
     // detail so the lockout page can render it without another round trip.
@@ -20,17 +23,31 @@ api.interceptors.response.use(r => r, async err => {
     }
     return Promise.reject(err)
   }
-  if (err.response?.status === 401 && !orig._retry) {
+
+  if (err.response?.status === 401 && !orig._retry && !isAuthEndpoint) {
     orig._retry = true
     const rt = useAuthStore.getState().refreshToken
-    if (!rt) { useAuthStore.getState().clearAuth(); window.location.href = '/login'; return Promise.reject(err) }
+    if (!rt) {
+      if (useAuthStore.getState().isAuthenticated) {
+        useAuthStore.getState().clearAuth()
+        if (!window.location.pathname.includes('/login')) {
+          window.location.href = '/login'
+        }
+      }
+      return Promise.reject(err)
+    }
     try {
       const { data } = await axios.post('/api/v1/auth/refresh', { refreshToken: rt })
       const { accessToken, refreshToken } = data.data
       useAuthStore.getState().setAuth(useAuthStore.getState().user!, accessToken, refreshToken)
       orig.headers.Authorization = `Bearer ${accessToken}`
       return api(orig)
-    } catch { useAuthStore.getState().clearAuth(); window.location.href = '/login' }
+    } catch {
+      useAuthStore.getState().clearAuth()
+      if (!window.location.pathname.includes('/login')) {
+        window.location.href = '/login'
+      }
+    }
   }
   return Promise.reject(err)
 })
