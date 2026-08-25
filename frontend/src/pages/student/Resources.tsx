@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FileText, Code2, Presentation, Download, Search, Loader2, Video, Music, Image as ImageIcon, Archive, ExternalLink } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
 import { resourceAPI } from '../../services/api'
 import { EmptyState, ListItemSkeleton } from '../../components/ui'
 
@@ -24,6 +25,24 @@ const colorMap: Record<string, string> = {
 export default function StudentResources() {
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState('all')
+  const [downloadingId, setDownloadingId] = useState<string | null>(null)
+
+  const handleDownload = async (r: any) => {
+    setDownloadingId(r._id)
+    try {
+      const res = await resourceAPI.download(r._id)
+      const url = res.data?.data?.url
+      if (url) {
+        window.open(url, '_blank', 'noopener,noreferrer')
+      } else {
+        toast.error('Download link not available')
+      }
+    } catch (e: any) {
+      toast.error(e?.response?.data?.message ?? 'Could not download resource')
+    } finally {
+      setDownloadingId(null)
+    }
+  }
 
   const { data, isLoading } = useQuery({
     queryKey: ['myResources'],
@@ -96,9 +115,15 @@ export default function StudentResources() {
                             <ExternalLink size={11}/> Watch
                           </a>
                         ) : (
-                          <a href={`/api/v1/resources/${r._id}/download`} className="flex items-center gap-1 text-[11px] text-brand-400 hover:text-brand-300 font-medium">
-                            <Download size={11}/> {r.fileSize ? `${(r.fileSize/1024/1024).toFixed(1)}MB` : 'Download'}
-                          </a>
+                          <button
+                            type="button"
+                            onClick={() => handleDownload(r)}
+                            disabled={downloadingId === r._id}
+                            className="flex items-center gap-1 text-[11px] text-brand-400 hover:text-brand-300 font-medium disabled:opacity-50"
+                          >
+                            {downloadingId === r._id ? <Loader2 size={11} className="animate-spin"/> : <Download size={11}/>}
+                            {r.fileSize ? ` ${(r.fileSize/1024/1024).toFixed(1)}MB` : ' Download'}
+                          </button>
                         )}
                       </div>
                     </div>

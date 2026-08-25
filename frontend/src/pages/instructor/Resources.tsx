@@ -20,6 +20,24 @@ export default function InstructorResources() {
   const [youtubeUrl, setYoutubeUrl] = useState('')
   const [progress, setProgress] = useState<number | null>(null)
   const [uploading, setUploading] = useState(false)
+  const [downloadingId, setDownloadingId] = useState<string | null>(null)
+
+  const handleDownload = async (r: any) => {
+    setDownloadingId(r._id)
+    try {
+      const res = await resourceAPI.download(r._id)
+      const url = res.data?.data?.url
+      if (url) {
+        window.open(url, '_blank', 'noopener,noreferrer')
+      } else {
+        toast.error('Download link not available')
+      }
+    } catch (e: any) {
+      toast.error(e?.response?.data?.message ?? 'Could not download resource')
+    } finally {
+      setDownloadingId(null)
+    }
+  }
 
   const { data: courseData } = useQuery({
     queryKey: ['myCourses', user?._id],
@@ -164,7 +182,15 @@ export default function InstructorResources() {
                   <span className="badge badge-indigo text-[10px] uppercase">{r.type}</span>
                   <div className="flex items-center gap-1">
                     {r.type !== 'youtube' && (
-                      <a href={`/api/v1/resources/${r._id}/download`} className="btn-ghost p-1.5"><Download size={13}/></a>
+                      <button
+                        type="button"
+                        onClick={() => handleDownload(r)}
+                        disabled={downloadingId === r._id}
+                        className="btn-ghost p-1.5"
+                        title="Download"
+                      >
+                        {downloadingId === r._id ? <Loader2 size={13} className="animate-spin"/> : <Download size={13}/>}
+                      </button>
                     )}
                     <button onClick={() => handleDelete(r)} disabled={deleteMut.isPending} className="btn-ghost p-1.5 text-red-400 hover:bg-red-500/10"><Trash2 size={13}/></button>
                   </div>

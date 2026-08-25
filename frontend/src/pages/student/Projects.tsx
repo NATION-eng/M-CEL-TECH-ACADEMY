@@ -73,6 +73,11 @@ export default function StudentProjects() {
                 <option value="team">Team</option>
                 <option value="capstone">Capstone</option>
               </select>
+              {form.type === 'team' && (
+                <p className="text-[11px] text-slate-500 mt-1">
+                  Team projects can be submitted individually or linked to teammates by your instructor.
+                </p>
+              )}
             </div>
             <div className="sm:col-span-2"><label className="label">Description</label><textarea className="input h-20 resize-none" placeholder="What does this project do?" value={form.description} onChange={e=>setForm({...form,description:e.target.value})}/></div>
             <div><label className="label flex items-center gap-1.5"><Github size={13}/> GitHub URL</label><input className="input" placeholder="https://github.com/..." value={form.githubUrl} onChange={e=>setForm({...form,githubUrl:e.target.value})}/></div>
