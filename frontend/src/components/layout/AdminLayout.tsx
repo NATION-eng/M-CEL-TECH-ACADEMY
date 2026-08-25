@@ -64,8 +64,9 @@ export default function AdminLayout() {
               )
             }
             const { icon: Icon, label, to } = item
+            const isActive = loc.pathname === to || (to !== '/admin/dashboard' && loc.pathname.startsWith(to))
             return (
-              <Link key={to} to={to} className={`sidebar-item ${loc.pathname === to ? 'active' : ''}`}>
+              <Link key={to} to={to} className={`sidebar-item ${isActive ? 'active' : ''}`}>
                 <Icon size={15} className="flex-shrink-0" />
                 <span className="text-[13px]">{label}</span>
               </Link>

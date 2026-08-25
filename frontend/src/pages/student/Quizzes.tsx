@@ -92,20 +92,32 @@ export default function StudentQuizzes() {
   if (taking && !result) {
     const q = taking.questions[current]
     if (!q) return null
-    // NOTE: this only renders an answer UI for MCQ-style questions
-    // (`q.options` populated). The quiz model supports `true_false` and
-    // `short_answer` types too (see backend/src/models/Quiz.model.ts),
-    // which have no `options` array — a quiz containing either of those
-    // question types would render this question with zero answer inputs,
-    // leaving the student unable to proceed. Flagging rather than
-    // silently shipping a half-working quiz flow; needs a toggle input
-    // for true_false and a text input for short_answer before those
-    // question types can actually be used in a live quiz.
+
+    const isTrueFalse = q.type === 'true_false'
+    const isShortAnswer = q.type === 'short_answer'
+    const options = q.options && q.options.length > 0 ? q.options : (isTrueFalse ? ['True', 'False'] : [])
+
+    const handleSelectOption = (optIdx: number) => {
+      setAnswers(prev => {
+        const next = { ...prev, [q._id]: optIdx }
+        try { sessionStorage.setItem(`quiz_draft_${taking.attemptId}`, JSON.stringify(next)) } catch {}
+        return next
+      })
+    }
+
+    const handleTextAnswer = (text: string) => {
+      setAnswers(prev => {
+        const next = { ...prev, [q._id]: text as any }
+        try { sessionStorage.setItem(`quiz_draft_${taking.attemptId}`, JSON.stringify(next)) } catch {}
+        return next
+      })
+    }
+
     return (
       <div className="mx-auto max-w-2xl space-y-5">
         <div className="flex items-center justify-between">
           <h2 className="font-display font-semibold text-white">Quiz in Progress</h2>
-          <button onClick={() => setTaking(null)} className="btn-ghost text-xs">Exit</button>
+          <button onClick={() => { setTaking(null); try { sessionStorage.removeItem(`quiz_draft_${taking.attemptId}`) } catch {} }} className="btn-ghost text-xs">Exit</button>
         </div>
         <ProgressBar
           value={((current + 1) / taking.questions.length) * 100}
@@ -115,19 +127,37 @@ export default function StudentQuizzes() {
         <p className="text-xs text-slate-500">Question {current + 1} of {taking.questions.length}</p>
         <div className="card p-7">
           <p className="mb-6 text-lg font-semibold text-white">{q.question}</p>
-          <div className="space-y-3">
-            {(q.options ?? []).map((opt, i) => (
-              <button key={i} onClick={() => setAnswers(a => ({ ...a, [q._id]: i }))}
-                className={`w-full rounded-xl border px-5 py-3.5 text-left text-sm transition-all ${answers[q._id] === i ? 'border-brand-500 bg-brand-600/15 text-white' : 'border-white/[0.08] text-slate-300 hover:border-white/20 hover:bg-white/[0.03]'}`}>
-                <span className="mr-3 font-mono text-xs text-slate-500">{String.fromCharCode(65 + i)}.</span> {opt}
-              </button>
-            ))}
-          </div>
+          
+          {isShortAnswer ? (
+            <div>
+              <label className="label">Your Answer</label>
+              <textarea
+                className="input h-24 resize-none"
+                placeholder="Type your response here..."
+                value={typeof answers[q._id] === 'string' ? (answers[q._id] as any) : ''}
+                onChange={e => handleTextAnswer(e.target.value)}
+              />
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {options.map((opt, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => handleSelectOption(i)}
+                  className={`w-full rounded-xl border px-5 py-3.5 text-left text-sm transition-all ${answers[q._id] === i ? 'border-brand-500 bg-brand-600/15 text-white' : 'border-white/[0.08] text-slate-300 hover:border-white/20 hover:bg-white/[0.03]'}`}
+                >
+                  <span className="mr-3 font-mono text-xs text-slate-500">{String.fromCharCode(65 + i)}.</span> {opt}
+                </button>
+              ))}
+            </div>
+          )}
+
           <div className="mt-6 flex justify-between">
-            <button onClick={() => setCurrent(c => Math.max(0, c - 1))} disabled={current === 0} className="btn-ghost">← Previous</button>
+            <button type="button" onClick={() => setCurrent(c => Math.max(0, c - 1))} disabled={current === 0} className="btn-ghost">← Previous</button>
             {current < taking.questions.length - 1
-              ? <button onClick={() => setCurrent(c => c + 1)} disabled={answers[q._id] === undefined} className="btn-primary">Next →</button>
-              : <button onClick={() => submitMut.mutate()} disabled={submitMut.isPending || Object.keys(answers).length < taking.questions.length} className="btn-accent">
+              ? <button type="button" onClick={() => setCurrent(c => c + 1)} disabled={answers[q._id] === undefined} className="btn-primary">Next →</button>
+              : <button type="button" onClick={() => submitMut.mutate()} disabled={submitMut.isPending || Object.keys(answers).length < taking.questions.length} className="btn-accent">
                   {submitMut.isPending ? <Loader2 size={14} className="animate-spin" /> : 'Submit Quiz'}
                 </button>}
           </div>

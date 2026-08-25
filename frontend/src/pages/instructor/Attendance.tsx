@@ -60,6 +60,13 @@ export default function InstructorAttendance() {
     onError: (e: any) => toast.error(e?.response?.data?.message ?? 'Failed to save attendance'),
   })
 
+  const markAllAs = (status: Status) => {
+    const updated: Record<string, Status> = {}
+    students.forEach((s: any) => { updated[s._id] = status })
+    setAttendance(updated)
+    toast.success(`Marked all as ${status}`)
+  }
+
   const summary = STATUS.map(s => ({ status:s, count:Object.values(attendance).filter(v=>v===s).length }))
 
   return (
@@ -82,10 +89,20 @@ export default function InstructorAttendance() {
           <div className="py-10 text-center text-slate-500 text-sm">Select a course to load its student roster.</div>
         ) : (
           <>
-            <div className="flex gap-2 flex-wrap mb-5">
-              {summary.map(s => (
-                <div key={s.status} className={`badge border ${statusColors[s.status]}`}>{s.status}: {s.count}</div>
-              ))}
+            <div className="flex items-center justify-between flex-wrap gap-2 mb-4">
+              <div className="flex gap-1.5 flex-wrap">
+                {summary.map(s => (
+                  <div key={s.status} className={`badge border ${statusColors[s.status]}`}>{s.status}: {s.count}</div>
+                ))}
+              </div>
+              {students.length > 0 && (
+                <div className="flex items-center gap-1 text-xs">
+                  <span className="text-slate-500 mr-1">Quick Set:</span>
+                  <button type="button" onClick={() => markAllAs('present')} className="btn-ghost py-1 px-2 text-xs text-emerald-400 hover:bg-emerald-500/10">All Present</button>
+                  <button type="button" onClick={() => markAllAs('absent')} className="btn-ghost py-1 px-2 text-xs text-red-400 hover:bg-red-500/10">All Absent</button>
+                  <button type="button" onClick={() => markAllAs('late')} className="btn-ghost py-1 px-2 text-xs text-amber-400 hover:bg-amber-500/10">All Late</button>
+                </div>
+              )}
             </div>
             {isLoading ? (
               <div className="py-12 flex items-center justify-center text-slate-500">

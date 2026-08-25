@@ -44,11 +44,14 @@ export default function InstructorLayout() {
       </div>
       <div className="flex-1 overflow-y-auto p-3">
         <div className="space-y-0.5">
-          {NAV.map(({ icon: Icon, label, to }) => (
-            <Link key={to} to={to} className={`sidebar-item ${loc.pathname.startsWith(to) ? 'active' : ''}`}>
-              <Icon size={16} className="flex-shrink-0"/><span>{label}</span>
-            </Link>
-          ))}
+          {NAV.map(({ icon: Icon, label, to }) => {
+            const isActive = loc.pathname === to || (to !== '/instructor/dashboard' && loc.pathname.startsWith(to))
+            return (
+              <Link key={to} to={to} className={`sidebar-item ${isActive ? 'active' : ''}`}>
+                <Icon size={16} className="flex-shrink-0"/><span>{label}</span>
+              </Link>
+            )
+          })}
         </div>
       </div>
       <div className="p-3 border-t border-white/[0.07]">
