@@ -47,7 +47,7 @@ export default function SuperAdminSettings() {
       )}
 
       {/* General */}
-      <div className="card p-6">
+      <div className="card p-5 sm:p-6">
         <div className="flex items-center gap-2 mb-5"><Globe size={16} className="text-brand-400"/><h2 className="font-display font-semibold text-white">General</h2></div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="sm:col-span-2"><label className="label">Academy Name</label><input className="input" value={general.academyName} onChange={e=>setGeneral({...general,academyName:e.target.value})}/></div>
@@ -56,13 +56,13 @@ export default function SuperAdminSettings() {
           <div><label className="label">Contact Email</label><input className="input" value={general.email} onChange={e=>setGeneral({...general,email:e.target.value})}/></div>
           <div><label className="label">Phone</label><input className="input" value={general.phone} onChange={e=>setGeneral({...general,phone:e.target.value})}/></div>
         </div>
-        <button className="btn-primary mt-5 text-sm" onClick={()=>saveMut.mutate('general')} disabled={saveMut.isPending}>
+        <button className="btn-primary mt-5 text-sm w-full sm:w-auto justify-center" onClick={()=>saveMut.mutate('general')} disabled={saveMut.isPending}>
           {saveMut.isPending ? <Loader2 size={13} className="animate-spin"/> : <><Save size={13}/> Save</>}
         </button>
       </div>
 
       {/* Payment */}
-      <div className="card p-6">
+      <div className="card p-5 sm:p-6">
         <div className="flex items-center gap-2 mb-5"><CreditCard size={16} className="text-emerald-400"/><h2 className="font-display font-semibold text-white">Payment Settings</h2></div>
         <div className="space-y-4">
           <div><label className="label">Default Deposit Percentage (min 50%)</label><input type="number" min={50} max={100} className="input max-w-xs" value={payment.defaultDepositPercent} onChange={e=>setPayment({...payment,defaultDepositPercent:e.target.value})}/><p className="text-xs text-slate-500 mt-1">Students must pay at least this % before getting full access.</p></div>
@@ -75,13 +75,13 @@ export default function SuperAdminSettings() {
             ))}
           </div>
         </div>
-        <button className="btn-primary mt-5 text-sm" onClick={()=>saveMut.mutate('payment')} disabled={saveMut.isPending}>
+        <button className="btn-primary mt-5 text-sm w-full sm:w-auto justify-center" onClick={()=>saveMut.mutate('payment')} disabled={saveMut.isPending}>
           {saveMut.isPending ? <Loader2 size={13} className="animate-spin"/> : <><Save size={13}/> Save</>}
         </button>
       </div>
 
       {/* Notifications */}
-      <div className="card p-6">
+      <div className="card p-5 sm:p-6">
         <div className="flex items-center gap-2 mb-5"><Mail size={16} className="text-cyan-400"/><h2 className="font-display font-semibold text-white">Notifications</h2></div>
         <div className="space-y-3">
           {([{label:'Assignment due reminders',key:'assignmentReminders'},{label:'Payment due reminders',key:'paymentReminders'},{label:'Certificate issuance notifications',key:'certificateNotifs'},{label:'Email notifications (via SMTP)',key:'emailNotifications'}] as {label:string;key:keyof NotifSettings}[]).map(item=>(
@@ -91,16 +91,16 @@ export default function SuperAdminSettings() {
             </label>
           ))}
         </div>
-        <button className="btn-primary mt-5 text-sm" onClick={()=>saveMut.mutate('notifications')} disabled={saveMut.isPending}>
+        <button className="btn-primary mt-5 text-sm w-full sm:w-auto justify-center" onClick={()=>saveMut.mutate('notifications')} disabled={saveMut.isPending}>
           {saveMut.isPending ? <Loader2 size={13} className="animate-spin"/> : <><Save size={13}/> Save</>}
         </button>
       </div>
 
       {/* Security */}
-      <div className="card p-6">
+      <div className="card p-5 sm:p-6">
         <div className="flex items-center gap-2 mb-5"><Shield size={16} className="text-amber-400"/><h2 className="font-display font-semibold text-white">Security</h2></div>
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div><label className="label">Session Timeout (minutes)</label><input type="number" className="input" value={security.sessionTimeout} onChange={e=>setSecurity({...security,sessionTimeout:e.target.value})}/></div>
             <div><label className="label">Max Login Attempts</label><input type="number" className="input" value={security.maxLoginAttempts} onChange={e=>setSecurity({...security,maxLoginAttempts:e.target.value})}/></div>
           </div>
@@ -113,7 +113,7 @@ export default function SuperAdminSettings() {
             ))}
           </div>
         </div>
-        <button className="btn-primary mt-5 text-sm" onClick={()=>saveMut.mutate('security')} disabled={saveMut.isPending}>
+        <button className="btn-primary mt-5 text-sm w-full sm:w-auto justify-center" onClick={()=>saveMut.mutate('security')} disabled={saveMut.isPending}>
           {saveMut.isPending ? <Loader2 size={13} className="animate-spin"/> : <><Save size={13}/> Save</>}
         </button>
       </div>

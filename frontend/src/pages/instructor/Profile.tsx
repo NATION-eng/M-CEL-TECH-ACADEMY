@@ -54,20 +54,22 @@ export default function InstructorProfile() {
   return (
     <div className="space-y-6 max-w-3xl">
       <h1 className="font-display text-2xl font-bold text-white">Profile</h1>
-      <div className="card p-6">
-        <div className="flex items-start gap-5 mb-6">
-          <div className="relative">
-            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-600 to-brand-600 flex items-center justify-center text-white font-bold text-2xl">
+      <div className="card p-5 sm:p-6">
+        <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 sm:gap-5 mb-6 pb-6 border-b border-white/[0.07]">
+          <div className="relative shrink-0">
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-600 to-brand-600 flex items-center justify-center text-white font-bold text-2xl shadow-lg shadow-purple-900/30">
               {user?.firstName?.[0]}{user?.lastName?.[0]}
             </div>
-            <button className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-ink-800 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+            <button className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-ink-800 border border-white/15 flex items-center justify-center text-slate-400 hover:text-white transition-colors" title="Change avatar" aria-label="Change avatar">
               <Camera size={13}/>
             </button>
           </div>
-          <div>
-            <h2 className="font-display text-xl font-bold text-white">{user?.firstName} {user?.lastName}</h2>
-            <p className="text-slate-400 text-sm mt-0.5">{user?.email}</p>
-            <span className="badge badge-purple mt-1.5 capitalize">Instructor</span>
+          <div className="flex-1 min-w-0">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+              <h2 className="font-display text-xl font-bold text-white truncate">{user?.firstName} {user?.lastName}</h2>
+              <span className="badge badge-purple w-fit mx-auto sm:mx-0 capitalize">Instructor</span>
+            </div>
+            <p className="text-slate-400 text-sm mt-1 truncate">{user?.email}</p>
           </div>
         </div>
         {isLoading ? (
@@ -84,7 +86,7 @@ export default function InstructorProfile() {
         </div>
         )}
         <div className="flex justify-end mt-5 pt-5 border-t border-white/[0.07]">
-          <button className="btn-primary" onClick={() => saveMut.mutate()} disabled={saveMut.isPending || !user || isLoading}>
+          <button className="btn-primary w-full sm:w-auto justify-center" onClick={() => saveMut.mutate()} disabled={saveMut.isPending || !user || isLoading}>
             {saveMut.isPending ? <Loader2 size={14} className="animate-spin"/> : <><Save size={14}/> Save Changes</>}
           </button>
         </div>
