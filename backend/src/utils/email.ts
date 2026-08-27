@@ -49,7 +49,7 @@ export const sendEmail = async ({ to, subject, html }: SendEmailOptions): Promis
   }
   try {
     await getTransporter().sendMail({
-      from: process.env.EMAIL_FROM || 'M-CEL TECH ACADEMY <noreply@mceltechacademy.com>',
+      from: process.env.EMAIL_FROM || 'M-CEL TECH ACADEMY <noreply@mceltech.com>',
       to,
       subject,
       html,

@@ -46,29 +46,56 @@ export default function ContactPage() {
             <div className="space-y-5">
               <div className="card p-6">
                 <h3 className="font-semibold text-white mb-4">Contact Information</h3>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div className="flex gap-3 text-sm">
                     <MapPin size={16} className="text-brand-400 flex-shrink-0 mt-0.5"/>
-                    <div><div className="text-slate-500 text-xs mb-0.5">Address</div><div className="text-slate-300">24 Ada George Road, Port Harcourt, Rivers State</div></div>
+                    <div>
+                      <div className="text-slate-500 text-xs mb-0.5">Campus Address</div>
+                      <div className="text-slate-300">24 Ada George Road, Port Harcourt, Rivers State, Nigeria</div>
+                    </div>
                   </div>
-                  <a href={`mailto:${SOCIAL_LINKS.email}`} className="flex gap-3 text-sm group">
-                    <Mail size={16} className="text-brand-400 flex-shrink-0 mt-0.5"/>
-                    <div><div className="text-slate-500 text-xs mb-0.5">Email</div><div className="text-slate-300 group-hover:text-brand-400 transition-colors">{SOCIAL_LINKS.email}</div></div>
-                  </a>
+
                   <a href={`tel:${SOCIAL_LINKS.phoneIntl}`} className="flex gap-3 text-sm group">
                     <Phone size={16} className="text-brand-400 flex-shrink-0 mt-0.5"/>
-                    <div><div className="text-slate-500 text-xs mb-0.5">Phone</div><div className="text-slate-300 group-hover:text-brand-400 transition-colors">{SOCIAL_LINKS.phone}</div></div>
+                    <div>
+                      <div className="text-slate-500 text-xs mb-0.5">Phone Line</div>
+                      <div className="text-slate-300 group-hover:text-brand-400 transition-colors">{SOCIAL_LINKS.phone}</div>
+                    </div>
                   </a>
+
                   <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" className="flex gap-3 text-sm group">
                     <MessageCircle size={16} className="text-emerald-400 flex-shrink-0 mt-0.5"/>
-                    <div><div className="text-slate-500 text-xs mb-0.5">WhatsApp</div><div className="text-slate-300 group-hover:text-emerald-400 transition-colors">Chat with an advisor now</div></div>
+                    <div>
+                      <div className="text-slate-500 text-xs mb-0.5">WhatsApp Advisor</div>
+                      <div className="text-slate-300 group-hover:text-emerald-400 transition-colors">Chat live with an admissions advisor</div>
+                    </div>
                   </a>
                 </div>
-              </div>
-              <div className="card p-6 h-48 bg-ink-700 flex items-center justify-center">
-                <div className="text-center text-slate-600">
-                  <MapPin size={32} className="mx-auto mb-2"/>
-                  <p className="text-sm">Port Harcourt, Nigeria</p>
+
+                <div className="mt-6 pt-6 border-t border-white/[0.08]">
+                  <h4 className="text-xs font-semibold text-white mb-3 uppercase tracking-wider">Department Emails</h4>
+                  <div className="space-y-2.5">
+                    <a href="mailto:contact@mceltech.com" className="flex items-center justify-between text-xs p-2 rounded-lg bg-ink-700/50 hover:bg-ink-700 text-slate-300 hover:text-white transition-colors">
+                      <span className="text-slate-400">General Inquiries:</span>
+                      <span className="font-mono text-brand-400">contact@mceltech.com</span>
+                    </a>
+                    <a href="mailto:training@mceltech.com" className="flex items-center justify-between text-xs p-2 rounded-lg bg-ink-700/50 hover:bg-ink-700 text-slate-300 hover:text-white transition-colors">
+                      <span className="text-slate-400">Training & Admissions:</span>
+                      <span className="font-mono text-brand-400">training@mceltech.com</span>
+                    </a>
+                    <a href="mailto:support@mceltech.com" className="flex items-center justify-between text-xs p-2 rounded-lg bg-ink-700/50 hover:bg-ink-700 text-slate-300 hover:text-white transition-colors">
+                      <span className="text-slate-400">Technical Support:</span>
+                      <span className="font-mono text-brand-400">support@mceltech.com</span>
+                    </a>
+                    <a href="mailto:customercare@mceltech.com" className="flex items-center justify-between text-xs p-2 rounded-lg bg-ink-700/50 hover:bg-ink-700 text-slate-300 hover:text-white transition-colors">
+                      <span className="text-slate-400">Customer Care:</span>
+                      <span className="font-mono text-brand-400">customercare@mceltech.com</span>
+                    </a>
+                    <a href="mailto:complain@mceltech.com" className="flex items-center justify-between text-xs p-2 rounded-lg bg-ink-700/50 hover:bg-ink-700 text-slate-300 hover:text-white transition-colors">
+                      <span className="text-slate-400">Complaints & Grievances:</span>
+                      <span className="font-mono text-brand-400">complain@mceltech.com</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

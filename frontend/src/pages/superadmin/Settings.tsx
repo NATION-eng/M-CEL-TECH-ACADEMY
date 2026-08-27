@@ -10,7 +10,7 @@ type NotifSettings = { assignmentReminders:boolean; paymentReminders:boolean; ce
 type SecuritySettings = { requireStrongPasswords:boolean; sessionTimeout:string; maxLoginAttempts:string; enableAuditLogs:boolean }
 
 export default function SuperAdminSettings() {
-  const [general, setGeneral] = useState<GeneralSettings>({ academyName:'M-CEL TECH ACADEMY', tagline:'Become a Job-Ready Digital Professional', address:'24 Ada George Road, Port Harcourt, Rivers State', email:'hello@mceltechacademy.com', phone:'+234 (0) 800 000 0000' })
+  const [general, setGeneral] = useState<GeneralSettings>({ academyName:'M-CEL TECH ACADEMY', tagline:'Become a Job-Ready Digital Professional', address:'24 Ada George Road, Port Harcourt, Rivers State', email:'contact@mceltech.com', phone:'08161237136' })
   const [payment, setPayment] = useState<PaymentSettings>({ defaultDepositPercent:'60', paystackEnabled:true, flutterwaveEnabled:true, allowInstallments:true })
   const [notif, setNotif] = useState<NotifSettings>({ assignmentReminders:true, paymentReminders:true, certificateNotifs:true, emailNotifications:true })
   const [security, setSecurity] = useState<SecuritySettings>({ requireStrongPasswords:true, sessionTimeout:'60', maxLoginAttempts:'5', enableAuditLogs:true })
