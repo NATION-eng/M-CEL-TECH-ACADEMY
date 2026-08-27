@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Search, Plus, MoreVertical, UserX, UserCheck, Trash2, Eye, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -64,12 +64,12 @@ export default function AdminStudents() {
         try {
           await enrollmentAPI.enroll({ course, studentId: createdUser._id })
         } catch {
-          toast.error('Account created, but enrollment failed — enroll them manually from the course page.')
+          toast.error('Account created, but enrollment failed â€” enroll them manually from the course page.')
         }
       }
       return createdUser
     },
-    onSuccess: () => { toast.success('Student added — an invite email was sent so they can set their password.'); setShowAddModal(false); setNewStudent({ firstName:'', lastName:'', email:'', phone:'', course:'' }); qc.invalidateQueries({ queryKey: ['students'] }) },
+    onSuccess: () => { toast.success('Student added â€” an invite email was sent so they can set their password.'); setShowAddModal(false); setNewStudent({ firstName:'', lastName:'', email:'', phone:'', course:'' }); qc.invalidateQueries({ queryKey: ['students'] }) },
     onError: (e: any) => toast.error(e?.response?.data?.message ?? 'Failed to add student'),
   })
 
@@ -116,7 +116,7 @@ export default function AdminStudents() {
             <Loader2 size={22} className="animate-spin mr-2"/> Loading students...
           </div>
         ) : (
-          <table className="tbl w-full">
+          <div className="tbl-wrap"><table className="tbl w-full">
             <thead>
               <tr>
                 <th>Student</th>
@@ -130,7 +130,7 @@ export default function AdminStudents() {
             <tbody>
               {filtered.map(s => {
                 const name = `${s.firstName} ${s.lastName}`
-                const course = s.enrollments?.[0]?.course?.title ?? s.course ?? '—'
+                const course = s.enrollments?.[0]?.course?.title ?? s.course ?? 'â€”'
                 const progress = s.enrollments?.[0]?.progress ?? 0
                 const payment = s.paymentStatus ?? 'pending'
                 return (
@@ -140,7 +140,7 @@ export default function AdminStudents() {
                         <div className="w-8 h-8 rounded-full bg-brand-600/20 flex items-center justify-center text-brand-400 text-xs font-bold flex-shrink-0">{name[0]}</div>
                         <div>
                           <div className="font-medium text-white text-sm">{name}</div>
-                          <div className="text-[10px] text-slate-500 font-mono">{s.studentId ?? s._id.slice(-6)} · {s.email}</div>
+                          <div className="text-[10px] text-slate-500 font-mono">{s.studentId ?? s._id.slice(-6)} Â· {s.email}</div>
                         </div>
                       </div>
                     </td>
@@ -175,7 +175,7 @@ export default function AdminStudents() {
                 )
               })}
             </tbody>
-          </table>
+          </table></div>
         )}
         {!isLoading && filtered.length === 0 && (
           <div className="py-12 text-center text-slate-500 text-sm">No students match your search.</div>
@@ -195,14 +195,14 @@ export default function AdminStudents() {
               <div><label className="label">Email</label><input className="input" type="email" placeholder="student@example.com" value={newStudent.email} onChange={e=>setNewStudent({...newStudent,email:e.target.value})}/></div>
               <div><label className="label">Phone</label><input className="input" placeholder="08012345678" value={newStudent.phone} onChange={e=>setNewStudent({...newStudent,phone:e.target.value})}/></div>
               <div>
-                <label className="label">Program (optional — enrolls them immediately)</label>
+                <label className="label">Program (optional â€” enrolls them immediately)</label>
                 <select className="input" value={newStudent.course} onChange={e=>setNewStudent({...newStudent,course:e.target.value})}>
                   <option value="">No program yet</option>
                   {courses.map((c: any) => <option key={c._id} value={c._id}>{c.title}</option>)}
                 </select>
               </div>
             </div>
-            <div className="flex gap-3 mt-5">
+            <div className="flex flex-wrap gap-3 mt-5">
               <button className="btn-primary flex-1 justify-center" onClick={() => addMut.mutate()} disabled={addMut.isPending}>
                 {addMut.isPending ? <Loader2 size={15} className="animate-spin"/> : 'Add Student'}
               </button>
@@ -214,3 +214,5 @@ export default function AdminStudents() {
     </div>
   )
 }
+
+

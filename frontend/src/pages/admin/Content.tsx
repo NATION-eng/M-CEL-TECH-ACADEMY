@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Plus, Edit3, Trash2, Eye, FileText, Loader2, Search, Archive as ArchiveIcon, RotateCcw, Pin, Megaphone, Clock, ChevronLeft, ChevronRight } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -184,7 +184,7 @@ export default function AdminContent() {
                   <label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={blogForm.isPublished} onChange={e=>setBlogForm({...blogForm,isPublished:e.target.checked})} className="rounded"/><span className="text-sm text-slate-300">Publish</span></label>
                 </div>
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 <button className="btn-primary" onClick={()=>saveBlogMut.mutate()} disabled={saveBlogMut.isPending || !blogForm.title.trim() || !blogForm.excerpt.trim() || !blogForm.content.trim()}>
                   {saveBlogMut.isPending ? <Loader2 size={14} className="animate-spin"/> : <><FileText size={14}/> Save</>}
                 </button>
@@ -206,7 +206,7 @@ export default function AdminContent() {
                 <div className="flex items-end pb-2"><label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={annForm.isPinned} onChange={e=>setAnnForm({...annForm,isPinned:e.target.checked})} className="rounded"/><span className="text-sm text-slate-300">Pin to top</span></label></div>
                 <div className="flex items-end pb-2"><label className="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked={annForm.isPublished} onChange={e=>setAnnForm({...annForm,isPublished:e.target.checked})} className="rounded"/><span className="text-sm text-slate-300">Publish (uncheck to save as draft)</span></label></div>
               </div>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 <button className="btn-primary" onClick={()=>saveAnnMut.mutate()} disabled={saveAnnMut.isPending || !annForm.title.trim() || !annForm.content.trim()}>
                   {saveAnnMut.isPending ? <Loader2 size={14} className="animate-spin"/> : <><Megaphone size={14}/> Save</>}
                 </button>
@@ -287,3 +287,4 @@ export default function AdminContent() {
     </div>
   )
 }
+

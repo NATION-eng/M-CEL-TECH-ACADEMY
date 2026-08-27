@@ -33,7 +33,21 @@ export default function PublicLayout() {
     window.addEventListener('scroll', fn)
     return () => window.removeEventListener('scroll', fn)
   }, [])
+
+  // Close menus on route change
   useEffect(() => { setOpen(false); setProgOpen(false) }, [loc.pathname])
+
+  // Lock body scroll when mobile menu is open; ESC closes both dropdowns
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+      const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { setOpen(false); setProgOpen(false) } }
+      window.addEventListener('keydown', onKey)
+      return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey) }
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [open])
 
   const portalPath = user ? `/${user.role === 'super_admin' ? 'superadmin' : user.role}/dashboard` : '/portal'
 
@@ -108,8 +122,8 @@ export default function PublicLayout() {
       {/* FOOTER */}
       <footer className="bg-ink-900 border-t border-white/[0.06]">
         <div className="page-container py-14">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
-            <div className="lg:col-span-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 mb-12">
+            <div className="col-span-2 sm:col-span-3 lg:col-span-2">
               <Link to="/" className="flex items-center gap-2.5 mb-4 w-fit">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-600 to-cyan-500 flex items-center justify-center font-display font-bold text-white text-sm">M</div>
                 <span className="font-display font-bold text-white">Masterview DIA</span>

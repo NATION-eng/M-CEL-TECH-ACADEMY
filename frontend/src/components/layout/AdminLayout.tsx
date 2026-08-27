@@ -1,6 +1,6 @@
-import { useState } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Users, GraduationCap, BookOpen, Layers, Trophy, CreditCard, Megaphone, Calendar, FileText, ClipboardList, LogOut, Menu, Shield, MessageSquare, LucideIcon, BarChart3 } from 'lucide-react'
+import { LayoutDashboard, Users, GraduationCap, BookOpen, Layers, Trophy, CreditCard, Megaphone, Calendar, FileText, ClipboardList, LogOut, Menu, X, Shield, MessageSquare, LucideIcon, BarChart3 } from 'lucide-react'
 import NotificationBell from '../NotificationBell'
 import { useAuthStore } from '../../store/auth.store'
 import { authAPI } from '../../services/api'
@@ -37,14 +37,29 @@ export default function AdminLayout() {
   const nav = useNavigate()
   const { user, clearAuth } = useAuthStore()
 
+  const closeSidebar = useCallback(() => setSidebarOpen(false), [])
+
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden'
+      const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeSidebar() }
+      window.addEventListener('keydown', onKey)
+      return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey) }
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [sidebarOpen, closeSidebar])
+
+  useEffect(() => { closeSidebar() }, [loc.pathname, closeSidebar])
+
   const handleLogout = async () => {
     try { await authAPI.logout() } catch {}
     clearAuth(); nav('/login'); toast.success('Logged out')
   }
 
-  const Sidebar = () => (
+  const SidebarContent = () => (
     <aside className="w-64 bg-ink-800 border-r border-white/[0.07] flex flex-col h-full">
-      <div className="p-5 border-b border-white/[0.07]">
+      <div className="p-5 border-b border-white/[0.07] flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center font-display font-bold text-white text-xs">M</div>
           <div>
@@ -52,6 +67,7 @@ export default function AdminLayout() {
             <div className="font-mono text-[9px] text-slate-600 mt-0.5">Admin Portal</div>
           </div>
         </Link>
+        <button className="lg:hidden btn-ghost p-1" onClick={closeSidebar} aria-label="Close menu"><X size={16} /></button>
       </div>
       <div className="flex-1 overflow-y-auto p-3">
         <div className="space-y-0.5">
@@ -93,16 +109,16 @@ export default function AdminLayout() {
 
   return (
     <div className="flex h-screen bg-ink-900 overflow-hidden">
-      <div className="hidden lg:flex flex-col flex-shrink-0"><Sidebar /></div>
+      <div className="hidden lg:flex flex-col flex-shrink-0"><SidebarContent /></div>
       {sidebarOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 flex">
-          <div className="flex-shrink-0"><Sidebar /></div>
-          <div className="flex-1 bg-black/60" onClick={() => setSidebarOpen(false)} />
+        <div className="sidebar-overlay lg:hidden" role="dialog" aria-modal="true">
+          <div className="sidebar-drawer"><SidebarContent /></div>
+          <div className="flex-1 bg-black/60" onClick={closeSidebar} />
         </div>
       )}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <header className="h-14 bg-ink-800 border-b border-white/[0.07] flex items-center justify-between px-4 flex-shrink-0">
-          <button className="lg:hidden btn-ghost p-1.5" onClick={() => setSidebarOpen(true)}><Menu size={18} /></button>
+          <button className="lg:hidden btn-ghost p-1.5" onClick={() => setSidebarOpen(true)} aria-label="Open menu"><Menu size={18} /></button>
           <div className="hidden sm:flex items-center gap-2 text-sm font-medium text-slate-400">
             <Shield size={14} className="text-amber-500" /> Admin Portal
           </div>
@@ -113,7 +129,7 @@ export default function AdminLayout() {
             )}
           </div>
         </header>
-        <main className="flex-1 overflow-y-auto p-5 lg:p-7"><Outlet /></main>
+        <main className="flex-1 overflow-y-auto p-4 sm:p-5 lg:p-7"><Outlet /></main>
       </div>
     </div>
   )

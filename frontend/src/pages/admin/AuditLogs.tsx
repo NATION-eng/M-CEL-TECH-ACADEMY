@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Search, Shield, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { auditAPI } from '../../services/api'
@@ -63,7 +63,7 @@ export default function AdminAuditLogs() {
             <Loader2 size={22} className="animate-spin mr-2"/> Loading logs...
           </div>
         ) : (
-          <table className="tbl w-full">
+          <div className="tbl-wrap"><table className="tbl w-full">
             <thead><tr><th>Time</th><th>User</th><th>Action</th><th>Entity</th><th>IP Address</th><th>Status</th></tr></thead>
             <tbody>
               {filtered.map(log => (
@@ -72,7 +72,7 @@ export default function AdminAuditLogs() {
                   <td className="text-sm text-slate-300 max-w-[180px] truncate">{log.user?.email ?? log.user ?? 'System'}</td>
                   <td><span className={`badge ${actionColors[log.action] ?? 'badge-indigo'} text-[10px]`}>{(log.action ?? '').replace(/_/g,' ')}</span></td>
                   <td><div className="text-sm text-slate-300">{log.entity}</div>{log.entityId && <div className="text-[10px] text-slate-600 font-mono">{log.entityId}</div>}</td>
-                  <td className="font-mono text-xs text-slate-500">{log.ipAddress ?? '—'}</td>
+                  <td className="font-mono text-xs text-slate-500">{log.ipAddress ?? 'â€”'}</td>
                   <td>
                     {log.status === 'success'
                       ? <CheckCircle2 size={14} className="text-emerald-400"/>
@@ -81,10 +81,11 @@ export default function AdminAuditLogs() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         )}
         {!isLoading && filtered.length === 0 && <div className="py-10 text-center text-slate-500 text-sm">No logs match your filters.</div>}
       </div>
     </div>
   )
 }
+

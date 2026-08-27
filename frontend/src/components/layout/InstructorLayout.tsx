@@ -1,6 +1,6 @@
-import { useState } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, BookOpen, CalendarCheck, Star, Users, LogOut, Menu, MessageSquare, User, Megaphone, FolderOpen, BarChart3, Upload } from 'lucide-react'
+import { LayoutDashboard, BookOpen, CalendarCheck, Star, Users, LogOut, Menu, X, MessageSquare, User, Megaphone, FolderOpen, BarChart3, Upload } from 'lucide-react'
 import NotificationBell from '../NotificationBell'
 import { useAuthStore } from '../../store/auth.store'
 import { authAPI } from '../../services/api'
@@ -26,14 +26,29 @@ export default function InstructorLayout() {
   const nav = useNavigate()
   const { user, clearAuth } = useAuthStore()
 
+  const closeSidebar = useCallback(() => setSidebarOpen(false), [])
+
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden'
+      const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeSidebar() }
+      window.addEventListener('keydown', onKey)
+      return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey) }
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [sidebarOpen, closeSidebar])
+
+  useEffect(() => { closeSidebar() }, [loc.pathname, closeSidebar])
+
   const handleLogout = async () => {
     try { await authAPI.logout() } catch {}
     clearAuth(); nav('/login'); toast.success('Logged out')
   }
 
-  const Sidebar = () => (
-    <aside className="w-60 bg-ink-800 border-r border-white/[0.07] flex flex-col h-full">
-      <div className="p-5 border-b border-white/[0.07]">
+  const SidebarContent = () => (
+    <aside className="w-64 sm:w-60 bg-ink-800 border-r border-white/[0.07] flex flex-col h-full">
+      <div className="p-5 border-b border-white/[0.07] flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-purple-600 to-brand-600 flex items-center justify-center font-display font-bold text-white text-xs">M</div>
           <div>
@@ -41,6 +56,7 @@ export default function InstructorLayout() {
             <div className="font-mono text-[9px] text-slate-600 mt-0.5">Instructor Portal</div>
           </div>
         </Link>
+        <button className="lg:hidden btn-ghost p-1" onClick={closeSidebar} aria-label="Close menu"><X size={16}/></button>
       </div>
       <div className="flex-1 overflow-y-auto p-3">
         <div className="space-y-0.5">
@@ -73,20 +89,20 @@ export default function InstructorLayout() {
 
   return (
     <div className="flex h-screen bg-ink-900 overflow-hidden">
-      <div className="hidden lg:flex flex-col flex-shrink-0"><Sidebar /></div>
+      <div className="hidden lg:flex flex-col flex-shrink-0"><SidebarContent /></div>
       {sidebarOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 flex">
-          <div className="flex-shrink-0"><Sidebar /></div>
-          <div className="flex-1 bg-black/60" onClick={() => setSidebarOpen(false)}/>
+        <div className="sidebar-overlay lg:hidden" role="dialog" aria-modal="true">
+          <div className="sidebar-drawer"><SidebarContent /></div>
+          <div className="flex-1 bg-black/60" onClick={closeSidebar}/>
         </div>
       )}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <header className="h-14 bg-ink-800 border-b border-white/[0.07] flex items-center justify-between px-4 flex-shrink-0">
-          <button className="lg:hidden btn-ghost p-1.5" onClick={() => setSidebarOpen(true)}><Menu size={18}/></button>
+          <button className="lg:hidden btn-ghost p-1.5" onClick={() => setSidebarOpen(true)} aria-label="Open menu"><Menu size={18}/></button>
           <div className="hidden sm:block text-sm font-medium text-slate-400">Instructor Portal</div>
           <div className="ml-auto"><NotificationBell/></div>
         </header>
-        <main className="flex-1 overflow-y-auto p-5 lg:p-7"><Outlet /></main>
+        <main className="flex-1 overflow-y-auto p-4 sm:p-5 lg:p-7"><Outlet /></main>
       </div>
     </div>
   )

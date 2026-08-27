@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Plus, Github, Globe, Star, Users, Layers, LucideIcon, Loader2, FolderGit2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -84,7 +84,7 @@ export default function StudentProjects() {
             <div><label className="label flex items-center gap-1.5"><Globe size={13}/> Live URL</label><input className="input" placeholder="https://..." value={form.liveUrl} onChange={e=>setForm({...form,liveUrl:e.target.value})}/></div>
             <div className="sm:col-span-2"><label className="label">Technologies (comma separated)</label><input className="input" placeholder="React, Node.js, MongoDB" value={form.technologies} onChange={e=>setForm({...form,technologies:e.target.value})}/></div>
           </div>
-          <div className="flex gap-3 mt-5">
+          <div className="flex flex-wrap gap-3 mt-5">
             <button className="btn-primary text-sm" onClick={() => saveMut.mutate()} disabled={saveMut.isPending || !form.title}>
               {saveMut.isPending ? <Loader2 size={14} className="animate-spin"/> : 'Save Project'}
             </button>
@@ -143,3 +143,4 @@ export default function StudentProjects() {
     </div>
   )
 }
+

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Search, Download, TrendingUp, AlertCircle, CheckCircle2, Clock, Loader2 } from 'lucide-react'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import { useQuery } from '@tanstack/react-query'
@@ -66,8 +66,8 @@ export default function AdminPayments() {
       {/* Summary cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label:'Total Revenue', value:`₦${((totalRevenue ?? 0)/1000).toFixed(0)}k`, icon:TrendingUp, color:'text-emerald-400 bg-emerald-600/15' },
-          { label:'Outstanding', value:`₦${((totalOutstanding ?? 0)/1000).toFixed(0)}k`, icon:Clock, color:'text-amber-400 bg-amber-600/15' },
+          { label:'Total Revenue', value:`â‚¦${((totalRevenue ?? 0)/1000).toFixed(0)}k`, icon:TrendingUp, color:'text-emerald-400 bg-emerald-600/15' },
+          { label:'Outstanding', value:`â‚¦${((totalOutstanding ?? 0)/1000).toFixed(0)}k`, icon:Clock, color:'text-amber-400 bg-amber-600/15' },
           { label:'Overdue Students', value:(overdueCount ?? 0).toString(), icon:AlertCircle, color:'text-red-400 bg-red-600/15' },
           { label:'Fully Paid', value:(fullyPaidCount ?? 0).toString(), icon:CheckCircle2, color:'text-cyan-400 bg-cyan-600/15' },
         ].map(s=>(
@@ -81,12 +81,12 @@ export default function AdminPayments() {
 
       {/* Revenue chart */}
       <div className="card p-5">
-        <h2 className="font-display font-semibold text-white mb-4">Monthly Revenue (₦ thousands)</h2>
+        <h2 className="font-display font-semibold text-white mb-4">Monthly Revenue (â‚¦ thousands)</h2>
         <ResponsiveContainer width="100%" height={160}>
           <BarChart data={monthlyRevenue}>
             <XAxis dataKey="month" tick={{fill:'#64748b',fontSize:11}} axisLine={false} tickLine={false}/>
             <YAxis hide/>
-            <Tooltip formatter={(v:number)=>[`₦${v}k`,'Revenue']} contentStyle={{background:'#0F1A2E',border:'1px solid rgba(255,255,255,0.08)',borderRadius:'8px',color:'#f1f5f9',fontSize:12}}/>
+            <Tooltip formatter={(v:number)=>[`â‚¦${v}k`,'Revenue']} contentStyle={{background:'#0F1A2E',border:'1px solid rgba(255,255,255,0.08)',borderRadius:'8px',color:'#f1f5f9',fontSize:12}}/>
             <Bar dataKey="amount" fill="#4F46E5" radius={[4,4,0,0]}/>
           </BarChart>
         </ResponsiveContainer>
@@ -117,12 +117,12 @@ export default function AdminPayments() {
             <Loader2 size={22} className="animate-spin mr-2"/> Loading payments...
           </div>
         ) : (
-          <table className="tbl w-full">
+          <div className="tbl-wrap"><table className="tbl w-full">
             <thead><tr><th>Student</th><th>Course</th><th>Total</th><th>Paid</th><th>Balance</th><th>Status</th><th>Last Payment</th></tr></thead>
             <tbody>
               {filtered.map(p => {
-                const studentName = p.student ? `${p.student.firstName} ${p.student.lastName}` : p.studentName ?? '—'
-                const courseName = p.course?.title ?? p.courseName ?? '—'
+                const studentName = p.student ? `${p.student.firstName} ${p.student.lastName}` : p.studentName ?? 'â€”'
+                const courseName = p.course?.title ?? p.courseName ?? 'â€”'
                 const total = p.totalFee ?? p.total ?? 0
                 const paid = p.amountPaid ?? p.paid ?? p.amount ?? 0
                 const balance = p.balance ?? (total - paid)
@@ -132,16 +132,16 @@ export default function AdminPayments() {
                   <tr key={p._id}>
                     <td><span className="font-medium text-white text-sm">{studentName}</span></td>
                     <td><span className="text-sm text-slate-300">{courseName}</span></td>
-                    <td><span className="font-mono text-sm text-slate-300">₦{total.toLocaleString()}</span></td>
-                    <td><span className="font-mono text-sm text-emerald-400">₦{paid.toLocaleString()}</span></td>
-                    <td><span className={`font-mono text-sm ${balance>0?'text-amber-400':'text-slate-500'}`}>{balance>0?`₦${balance.toLocaleString()}`:'—'}</span></td>
+                    <td><span className="font-mono text-sm text-slate-300">â‚¦{total.toLocaleString()}</span></td>
+                    <td><span className="font-mono text-sm text-emerald-400">â‚¦{paid.toLocaleString()}</span></td>
+                    <td><span className={`font-mono text-sm ${balance>0?'text-amber-400':'text-slate-500'}`}>{balance>0?`â‚¦${balance.toLocaleString()}`:'â€”'}</span></td>
                     <td><span className={`badge ${statusBadge[status] ?? 'badge-indigo'}`}>{status}</span></td>
-                    <td className="text-slate-500 text-sm">{lastPayment ? new Date(lastPayment).toLocaleDateString('en-GB') : '—'}</td>
+                    <td className="text-slate-500 text-sm">{lastPayment ? new Date(lastPayment).toLocaleDateString('en-GB') : 'â€”'}</td>
                   </tr>
                 )
               })}
             </tbody>
-          </table>
+          </table></div>
         )}
         {!loadingPayments && filtered.length === 0 && (
           <div className="py-10 text-center text-slate-500 text-sm">No payment records found.</div>
@@ -150,3 +150,4 @@ export default function AdminPayments() {
     </div>
   )
 }
+

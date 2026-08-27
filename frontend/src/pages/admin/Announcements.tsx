@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Plus, Pin, Trash2, Edit3, Megaphone, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -119,7 +119,7 @@ export default function AdminAnnouncements() {
               <span className="text-sm text-slate-300">Pin this announcement</span>
             </label>
           </div>
-          <div className="flex gap-3 mt-5">
+          <div className="flex flex-wrap gap-3 mt-5">
             <button className="btn-primary" onClick={() => editingId ? updateM.mutate() : createM.mutate()} disabled={createM.isPending || updateM.isPending}>
               {(createM.isPending || updateM.isPending) ? <Loader2 size={14} className="animate-spin"/> : <><Megaphone size={14}/> {editingId ? 'Save Changes' : 'Publish'}</>}
             </button>
@@ -148,10 +148,10 @@ export default function AdminAnnouncements() {
                   <p className="text-sm text-slate-400 leading-relaxed mb-3">{a.content}</p>
                   <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500">
                     <span>By {a.author?.firstName ?? 'Admin'} {a.author?.lastName ?? ''}</span>
-                    <span>·</span>
+                    <span>Â·</span>
                     <span>{new Date(a.publishedAt ?? a.createdAt).toLocaleDateString('en-GB')}</span>
-                    {a.expiresAt && <span>· Expires {new Date(a.expiresAt).toLocaleDateString('en-GB')}</span>}
-                    <span>·</span>
+                    {a.expiresAt && <span>Â· Expires {new Date(a.expiresAt).toLocaleDateString('en-GB')}</span>}
+                    <span>Â·</span>
                     {(a.targetRoles ?? []).map((r: string) => <span key={r} className={`badge text-[10px] ${r==='student'?'badge-indigo':r==='instructor'?'badge-purple':'badge-amber'}`}>{r}s</span>)}
                   </div>
                 </div>
@@ -167,3 +167,4 @@ export default function AdminAnnouncements() {
     </div>
   )
 }
+

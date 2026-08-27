@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Star, Check, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -42,17 +42,17 @@ export default function InstructorGrades() {
             <Loader2 size={22} className="animate-spin mr-2"/> Loading submissions...
           </div>
         ) : (
-          <table className="tbl w-full">
+          <div className="tbl-wrap"><table className="tbl w-full">
             <thead><tr><th>Student</th><th>Assignment</th><th>Course</th><th>Submitted</th><th>Score</th><th></th></tr></thead>
             <tbody>
               {submissions.length === 0 && (
                 <tr><td colSpan={6} className="py-10 text-center text-slate-500 text-sm">No submissions yet.</td></tr>
               )}
               {submissions.map(s => {
-                const studentName = s.student ? `${s.student.firstName} ${s.student.lastName}` : '—'
-                const assignmentTitle = s.assignment?.title ?? '—'
-                const courseTitle = s.assignment?.course?.title ?? '—'
-                const submittedAt = s.submittedAt ? new Date(s.submittedAt).toLocaleDateString('en-GB') : '—'
+                const studentName = s.student ? `${s.student.firstName} ${s.student.lastName}` : 'â€”'
+                const assignmentTitle = s.assignment?.title ?? 'â€”'
+                const courseTitle = s.assignment?.course?.title ?? 'â€”'
+                const submittedAt = s.submittedAt ? new Date(s.submittedAt).toLocaleDateString('en-GB') : 'â€”'
                 return (
                   <>
                     <tr key={s._id}>
@@ -83,9 +83,10 @@ export default function InstructorGrades() {
                 )
               })}
             </tbody>
-          </table>
+          </table></div>
         )}
       </div>
     </div>
   )
 }
+

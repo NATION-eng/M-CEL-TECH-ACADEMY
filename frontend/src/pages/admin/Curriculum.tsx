@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ChevronRight, ChevronDown, Plus, School, Layers, BookOpen, Calendar, Loader2, LucideIcon } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -8,7 +8,7 @@ import { curriculumAPI, courseAPI } from '../../services/api'
 type NodeType = 'school'|'department'|'badge'|'module'|'week'
 
 // Node types and the endpoint/payload needed to create a child of each.
-// 'course' is deliberately excluded — courses need price/description/etc,
+// 'course' is deliberately excluded â€” courses need price/description/etc,
 // which this quick-add tree can't collect, so "add course" just links to
 // the full Courses page instead of faking a bare-name create here.
 const CREATE_CONFIG: Record<NodeType, { label: string; create: (name: string, parentId: string, extra?: any) => Promise<any> }> = {
@@ -169,7 +169,7 @@ export default function AdminCurriculum() {
     mutationFn: () => CREATE_CONFIG[showAdd!.type].create(addName, showAdd!.parentId, showAdd!.extra),
     onSuccess: () => {
       toast.success(`${CREATE_CONFIG[showAdd!.type].label} added!`)
-      qc.invalidateQueries() // hierarchy spans many query keys — simplest correct option here
+      qc.invalidateQueries() // hierarchy spans many query keys â€” simplest correct option here
       setShowAdd(null)
       setAddName('')
     },
@@ -181,13 +181,13 @@ export default function AdminCurriculum() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-display text-2xl font-bold text-white">Curriculum Management</h1>
-          <p className="text-slate-500 text-sm mt-1">Live from the database — expand a node to load its children</p>
+          <p className="text-slate-500 text-sm mt-1">Live from the database â€” expand a node to load its children</p>
         </div>
         <button className="btn-primary text-sm" onClick={() => setShowAdd({type:'school',parentId:'root'})}><Plus size={15}/> Add School</button>
       </div>
 
       <div className="card p-4">
-        <p className="text-xs text-slate-500 mb-4 font-mono">// Hover any item and click + to add a child node. Courses need full details — use the Courses page.</p>
+        <p className="text-xs text-slate-500 mb-4 font-mono">// Hover any item and click + to add a child node. Courses need full details â€” use the Courses page.</p>
         {isLoading ? (
           <div className="py-10 flex items-center justify-center text-slate-500"><Loader2 size={18} className="animate-spin mr-2"/> Loading schools...</div>
         ) : (
@@ -203,7 +203,7 @@ export default function AdminCurriculum() {
                 <DeptListForSchool schoolId={school._id} expanded={!!openSchools[school._id]} openDepts={openDepts} setOpenDepts={setOpenDepts} setShowAdd={setShowAdd} nav={nav}/>
               </Row>
             ))}
-            {(schools ?? []).length === 0 && <div className="py-10 text-center text-slate-500 text-sm">No schools yet — add one to get started.</div>}
+            {(schools ?? []).length === 0 && <div className="py-10 text-center text-slate-500 text-sm">No schools yet â€” add one to get started.</div>}
           </div>
         )}
       </div>
@@ -213,7 +213,7 @@ export default function AdminCurriculum() {
           <div className="card p-6 w-full max-w-sm">
             <h2 className="font-display font-bold text-white mb-4">Add {CREATE_CONFIG[showAdd.type].label}</h2>
             <div><label className="label">Name</label><input className="input" placeholder={`Enter name...`} value={addName} onChange={e=>setAddName(e.target.value)} autoFocus/></div>
-            <div className="flex gap-3 mt-5">
+            <div className="flex flex-wrap gap-3 mt-5">
               <button className="btn-primary flex-1 justify-center" disabled={!addName.trim() || addMut.isPending} onClick={() => addMut.mutate()}>
                 {addMut.isPending ? <Loader2 size={14} className="animate-spin"/> : 'Add'}
               </button>
@@ -248,3 +248,4 @@ function DeptListForSchool({ schoolId, expanded, openDepts, setOpenDepts, setSho
     </>
   )
 }
+

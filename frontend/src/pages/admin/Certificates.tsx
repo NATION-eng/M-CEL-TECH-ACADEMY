@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Trophy, Plus, Shield, ShieldOff, Search, Download, Loader2, CheckCircle2, XCircle, AlertTriangle } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -146,16 +146,16 @@ export default function AdminCertificates() {
             <Loader2 size={22} className="animate-spin mr-2"/> Loading certificates...
           </div>
         ) : (
-          <table className="tbl w-full">
+          <div className="tbl-wrap"><table className="tbl w-full">
             <thead><tr><th>Certificate #</th><th>Student</th><th>Course / Badge</th><th>Issued</th><th>Status</th><th></th></tr></thead>
             <tbody>
               {filtered.map(c => {
-                const studentName = c.student ? `${c.student.firstName} ${c.student.lastName}` : '—'
+                const studentName = c.student ? `${c.student.firstName} ${c.student.lastName}` : 'â€”'
                 return (
                   <tr key={c._id}>
                     <td><span className="font-mono text-xs text-brand-400">{c.certificateNumber}</span></td>
                     <td><div className="flex items-center gap-2"><div className="w-7 h-7 rounded-full bg-amber-600/20 flex items-center justify-center text-amber-400 text-xs font-bold">{studentName[0]}</div><span className="text-sm font-medium text-white">{studentName}</span></div></td>
-                    <td><div className="text-sm text-slate-300">{c.course?.title ?? '—'}</div><div className="text-xs text-slate-500">{c.badgeLevel?.title ?? c.badgeLevel ?? '—'}</div></td>
+                    <td><div className="text-sm text-slate-300">{c.course?.title ?? 'â€”'}</div><div className="text-xs text-slate-500">{c.badgeLevel?.title ?? c.badgeLevel ?? 'â€”'}</div></td>
                     <td className="text-slate-400 text-sm">{new Date(c.issuedAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</td>
                     <td><span className={`badge ${c.isRevoked?'badge-red':'badge-green'}`}>{c.isRevoked?'revoked':'active'}</span></td>
                     <td>
@@ -173,7 +173,7 @@ export default function AdminCertificates() {
                 )
               })}
             </tbody>
-          </table>
+          </table></div>
         )}
         {!isLoading && filtered.length === 0 && (
           <div className="py-10 text-center text-slate-500 text-sm">No certificates found.</div>
@@ -192,7 +192,7 @@ export default function AdminCertificates() {
                   <div className="mt-1 card py-1 max-h-36 overflow-y-auto">
                     {searchStudents.map((s:any) => (
                       <button key={s._id} onClick={() => setForm(f => ({ ...f, studentId: s._id, studentSearch: `${s.firstName} ${s.lastName}` }))} className="w-full text-left px-3.5 py-2 text-xs text-slate-300 hover:bg-white/5">
-                        {s.firstName} {s.lastName} — {s.email}
+                        {s.firstName} {s.lastName} â€” {s.email}
                       </button>
                     ))}
                   </div>
@@ -246,7 +246,7 @@ export default function AdminCertificates() {
                 </div>
               )}
             </div>
-            <div className="flex gap-3 mt-5">
+            <div className="flex flex-wrap gap-3 mt-5">
               <button className="btn-primary flex-1 justify-center" onClick={() => issueM.mutate()} disabled={issueM.isPending || !canIssue}>
                 {issueM.isPending ? <Loader2 size={15} className="animate-spin"/> : <><Trophy size={14}/> Issue Certificate</>}
               </button>
@@ -258,3 +258,5 @@ export default function AdminCertificates() {
     </div>
   )
 }
+
+

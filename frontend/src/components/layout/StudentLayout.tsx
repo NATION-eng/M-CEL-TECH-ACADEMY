@@ -1,6 +1,6 @@
-import { useState } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, BookOpen, FileText, CheckSquare, Trophy, FolderOpen, CreditCard, User, LogOut, Menu, X, Brain, Layers, MessageSquare, Megaphone } from 'lucide-react'
+import { LayoutDashboard, BookOpen, FileText, Trophy, FolderOpen, CreditCard, User, LogOut, Menu, X, Brain, Layers, MessageSquare, Megaphone } from 'lucide-react'
 import { useAuthStore } from '../../store/auth.store'
 import { authAPI } from '../../services/api'
 import toast from 'react-hot-toast'
@@ -26,16 +26,29 @@ export default function StudentLayout() {
   const nav = useNavigate()
   const { user, clearAuth } = useAuthStore()
 
+  const closeSidebar = useCallback(() => setSidebarOpen(false), [])
+
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden'
+      const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') closeSidebar() }
+      window.addEventListener('keydown', onKey)
+      return () => { document.body.style.overflow = ''; window.removeEventListener('keydown', onKey) }
+    } else {
+      document.body.style.overflow = ''
+    }
+  }, [sidebarOpen, closeSidebar])
+
+  useEffect(() => { closeSidebar() }, [loc.pathname, closeSidebar])
+
   const handleLogout = async () => {
     try { await authAPI.logout() } catch {}
-    clearAuth()
-    nav('/login')
-    toast.success('Logged out')
+    clearAuth(); nav('/login'); toast.success('Logged out')
   }
 
-  const Sidebar = () => (
-    <aside className="w-60 bg-ink-800 border-r border-white/[0.07] flex flex-col h-full">
-      <div className="p-5 border-b border-white/[0.07]">
+  const SidebarContent = () => (
+    <aside className="w-64 sm:w-60 bg-ink-800 border-r border-white/[0.07] flex flex-col h-full">
+      <div className="p-5 border-b border-white/[0.07] flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-brand-600 to-cyan-500 flex items-center justify-center font-display font-bold text-white text-xs">M</div>
           <div>
@@ -43,6 +56,7 @@ export default function StudentLayout() {
             <div className="font-mono text-[9px] text-slate-600 mt-0.5">Student Portal</div>
           </div>
         </Link>
+        <button className="lg:hidden btn-ghost p-1" onClick={closeSidebar} aria-label="Close menu"><X size={16} /></button>
       </div>
       <div className="flex-1 overflow-y-auto p-3">
         <div className="space-y-0.5">
@@ -50,8 +64,7 @@ export default function StudentLayout() {
             const isActive = loc.pathname === to || (to !== '/student/dashboard' && loc.pathname.startsWith(to))
             return (
               <Link key={to} to={to} className={`sidebar-item ${isActive ? 'active' : ''}`}>
-                <Icon size={16} className="flex-shrink-0" />
-                <span>{label}</span>
+                <Icon size={16} className="flex-shrink-0" /><span>{label}</span>
               </Link>
             )
           })}
@@ -76,36 +89,22 @@ export default function StudentLayout() {
 
   return (
     <div className="flex h-screen bg-ink-900 overflow-hidden">
-      {/* Desktop sidebar */}
-      <div className="hidden lg:flex flex-col flex-shrink-0">
-        <Sidebar />
-      </div>
-
-      {/* Mobile sidebar overlay */}
+      <div className="hidden lg:flex flex-col flex-shrink-0"><SidebarContent /></div>
       {sidebarOpen && (
-        <div className="lg:hidden fixed inset-0 z-50 flex">
-          <div className="flex-shrink-0"><Sidebar /></div>
-          <div className="flex-1 bg-black/60" onClick={() => setSidebarOpen(false)} />
+        <div className="sidebar-overlay lg:hidden" role="dialog" aria-modal="true">
+          <div className="sidebar-drawer"><SidebarContent /></div>
+          <div className="flex-1 bg-black/60" onClick={closeSidebar} />
         </div>
       )}
-
-      {/* Main */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        {/* Top bar */}
         <header className="h-14 bg-ink-800 border-b border-white/[0.07] flex items-center justify-between px-4 flex-shrink-0">
-          <button className="lg:hidden btn-ghost p-1.5" onClick={() => setSidebarOpen(true)}><Menu size={18}/></button>
+          <button className="lg:hidden btn-ghost p-1.5" onClick={() => setSidebarOpen(true)} aria-label="Open menu"><Menu size={18}/></button>
           <div className="hidden sm:block text-sm font-medium text-slate-400">
-            {NAV.find(n => n.to === loc.pathname)?.label ?? 'Student Portal'}
+            {NAV.find(n => loc.pathname === n.to || (n.to !== '/student/dashboard' && loc.pathname.startsWith(n.to)))?.label ?? 'Student Portal'}
           </div>
-          <div className="flex items-center gap-2 ml-auto">
-            <NotificationBell/>
-          </div>
+          <div className="flex items-center gap-2 ml-auto"><NotificationBell/></div>
         </header>
-
-        {/* Page content */}
-        <main className="flex-1 overflow-y-auto p-5 lg:p-7">
-          <Outlet />
-        </main>
+        <main className="flex-1 overflow-y-auto p-4 sm:p-5 lg:p-7"><Outlet /></main>
       </div>
     </div>
   )

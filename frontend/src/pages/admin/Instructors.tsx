@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Plus, Search, MoreVertical, Trash2, UserX, UserCheck, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -42,7 +42,7 @@ export default function AdminInstructors() {
   const addMut = useMutation({
     mutationFn: () => userAPI.create({ ...form, role: 'instructor' }),
     onSuccess: () => {
-      toast.success('Instructor added — an invite email was sent so they can set their password.')
+      toast.success('Instructor added â€” an invite email was sent so they can set their password.')
       setShowAdd(false)
       setForm({ firstName:'', lastName:'', email:'', phone:'', specializations:'' })
       qc.invalidateQueries({ queryKey: ['instructors'] })
@@ -133,7 +133,7 @@ export default function AdminInstructors() {
               <div><label className="label">Phone</label><input className="input" value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})}/></div>
               <div><label className="label">Specializations (comma separated)</label><input className="input" placeholder="React, Node.js, MongoDB" value={form.specializations} onChange={e=>setForm({...form,specializations:e.target.value})}/></div>
             </div>
-            <div className="flex gap-3 mt-5">
+            <div className="flex flex-wrap gap-3 mt-5">
               <button className="btn-primary flex-1 justify-center" onClick={() => addMut.mutate()} disabled={addMut.isPending}>
                 {addMut.isPending ? <Loader2 size={15} className="animate-spin"/> : 'Add Instructor'}
               </button>
@@ -145,3 +145,4 @@ export default function AdminInstructors() {
     </div>
   )
 }
+

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Plus, Edit3, Trash2, Eye, FileText, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -111,7 +111,7 @@ export default function AdminBlog() {
               </div>
             </div>
           </div>
-          <div className="flex gap-3 mt-5">
+          <div className="flex flex-wrap gap-3 mt-5">
             <button
               className="btn-primary"
               onClick={() => saveM.mutate()}
@@ -168,3 +168,4 @@ export default function AdminBlog() {
     </div>
   )
 }
+

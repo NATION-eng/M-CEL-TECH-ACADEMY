@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Plus, Pin, Trash2, Edit3, Megaphone, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -32,7 +32,7 @@ export default function InstructorAnnouncements() {
     queryFn: async () => (await announcementAPI.all()).data.data,
   })
   const allAnnouncements: any[] = Array.isArray(data) ? data : (data?.announcements ?? [])
-  // Instructors only manage their own posts here — admin-wide announcements live in the Admin portal.
+  // Instructors only manage their own posts here â€” admin-wide announcements live in the Admin portal.
   const myAnnouncements = allAnnouncements.filter(a => (a.author?._id ?? a.author) === user?._id)
 
   const resetForm = () => setForm({ title:'', content:'', targetCourses:[], isPinned:false, expiresAt:'' })
@@ -85,7 +85,7 @@ export default function InstructorAnnouncements() {
         <h1 className="font-display text-2xl font-bold text-white">Announcements</h1>
         <button className="btn-primary text-sm" onClick={() => { resetForm(); setEditingId(null); setShowAdd(true) }}><Plus size={15}/> New Announcement</button>
       </div>
-      <p className="text-sm text-slate-500 -mt-3">Announcements you post here go only to students enrolled in the course(s) you pick — not the whole academy.</p>
+      <p className="text-sm text-slate-500 -mt-3">Announcements you post here go only to students enrolled in the course(s) you pick â€” not the whole academy.</p>
 
       {(showAdd || editingId) && (
         <div className="card p-6 border-brand-600/30">
@@ -110,7 +110,7 @@ export default function InstructorAnnouncements() {
               </label>
             </div>
           </div>
-          <div className="flex gap-3 mt-5">
+          <div className="flex flex-wrap gap-3 mt-5">
             <button className="btn-primary" onClick={() => editingId ? updateM.mutate() : createM.mutate()} disabled={createM.isPending || updateM.isPending || !form.title || !form.content || form.targetCourses.length===0}>
               {(createM.isPending || updateM.isPending) ? <Loader2 size={14} className="animate-spin"/> : <><Megaphone size={14}/> {editingId ? 'Save Changes' : 'Publish'}</>}
             </button>
@@ -150,3 +150,4 @@ export default function InstructorAnnouncements() {
     </div>
   )
 }
+

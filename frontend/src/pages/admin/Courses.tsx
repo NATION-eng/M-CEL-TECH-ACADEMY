@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Plus, BookOpen, Users, Edit3, Archive, MoreVertical, Loader2, Eye, EyeOff, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -177,13 +177,13 @@ export default function AdminCourses() {
                   <p className="text-[11px] text-amber-400/80 mb-2">
                     Archived {c.archivedAt ? new Date(c.archivedAt).toLocaleDateString('en-GB') : ''}
                     {c.archivedBy ? ` by ${c.archivedBy.firstName} ${c.archivedBy.lastName}` : ''}
-                    {c.archiveReason ? ` — "${c.archiveReason}"` : ''}
+                    {c.archiveReason ? ` â€” "${c.archiveReason}"` : ''}
                   </p>
                 )}
-                <p className="text-xs text-slate-500 mb-3">{c.department?.name ?? '—'}</p>
+                <p className="text-xs text-slate-500 mb-3">{c.department?.name ?? 'â€”'}</p>
                 <div className="space-y-2 text-xs mb-4">
-                  <div className="flex justify-between"><span className="text-slate-500">Price</span><span className="font-mono font-medium text-white">₦{(c.price ?? 0).toLocaleString()}</span></div>
-                  <div className="flex justify-between"><span className="text-slate-500">Min. Deposit</span><span className="font-mono text-emerald-400">₦{(c.depositAmount ?? 0).toLocaleString()}</span></div>
+                  <div className="flex justify-between"><span className="text-slate-500">Price</span><span className="font-mono font-medium text-white">â‚¦{(c.price ?? 0).toLocaleString()}</span></div>
+                  <div className="flex justify-between"><span className="text-slate-500">Min. Deposit</span><span className="font-mono text-emerald-400">â‚¦{(c.depositAmount ?? 0).toLocaleString()}</span></div>
                   <div className="flex justify-between"><span className="text-slate-500">Enrolled</span><span className="text-white flex items-center gap-1"><Users size={10}/> {c.enrolledCount ?? 0}</span></div>
                   <div className="flex justify-between"><span className="text-slate-500">Mode</span><span className={`badge text-[10px] ${c.deliveryMode==='online'?'badge-indigo':c.deliveryMode==='physical'?'badge-cyan':'badge-purple'}`}>{c.deliveryMode ?? 'hybrid'}</span></div>
                 </div>
@@ -204,7 +204,7 @@ export default function AdminCourses() {
           <div className="card p-6 w-full max-w-lg my-4">
             <h2 className="font-display text-lg font-bold text-white mb-5">{editingId ? 'Edit Course' : 'Add New Course'}</h2>
             <CourseFormFields form={form} setForm={setForm}/>
-            <div className="flex gap-3 mt-5">
+            <div className="flex flex-wrap gap-3 mt-5">
               <button
                 className="btn-primary flex-1 justify-center"
                 onClick={() => editingId ? updateMut.mutate() : createMut.mutate()}
@@ -220,3 +220,4 @@ export default function AdminCourses() {
     </div>
   )
 }
+

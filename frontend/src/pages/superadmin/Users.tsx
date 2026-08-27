@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Search, UserX, UserCheck, Trash2, MoreVertical, Loader2, Plus } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -47,7 +47,7 @@ export default function SuperAdminUsers() {
   const addAdminMut = useMutation({
     mutationFn: () => userAPI.create({ ...form, role: 'admin' }),
     onSuccess: () => {
-      toast.success('Admin added — an invite email was sent so they can set their password.')
+      toast.success('Admin added â€” an invite email was sent so they can set their password.')
       setShowAdd(false)
       setForm({ firstName:'', lastName:'', email:'', phone:'' })
       qc.invalidateQueries({ queryKey: ['allUsers'] })
@@ -103,7 +103,7 @@ export default function SuperAdminUsers() {
                     </td>
                     <td><span className={`badge ${roleColors[u.role] ?? 'badge-indigo'}`}>{(u.role ?? '').replace('_',' ')}</span></td>
                     <td><span className={`badge ${u.status==='active'?'badge-green':'badge-red'}`}>{u.status}</span></td>
-                    <td className="text-sm text-slate-500">{u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-GB') : '—'}</td>
+                    <td className="text-sm text-slate-500">{u.createdAt ? new Date(u.createdAt).toLocaleDateString('en-GB') : 'â€”'}</td>
                     <td>
                       <div className="relative">
                         <button className="btn-ghost p-1.5" onClick={() => setOpenMenu(openMenu===u._id?null:u._id)}><MoreVertical size={15}/></button>
@@ -149,7 +149,7 @@ export default function SuperAdminUsers() {
               <div><label className="label">Email</label><input className="input" type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})}/></div>
               <div><label className="label">Phone</label><input className="input" value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})}/></div>
             </div>
-            <div className="flex gap-3 mt-5">
+            <div className="flex flex-wrap gap-3 mt-5">
               <button className="btn-primary flex-1 justify-center" onClick={() => addAdminMut.mutate()} disabled={addAdminMut.isPending || !form.firstName || !form.lastName || !form.email}>
                 {addAdminMut.isPending ? <Loader2 size={15} className="animate-spin"/> : 'Add Admin'}
               </button>
@@ -161,3 +161,4 @@ export default function SuperAdminUsers() {
     </div>
   )
 }
+

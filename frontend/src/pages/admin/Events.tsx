@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { Plus, Calendar, MapPin, Edit3, Trash2, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -119,7 +119,7 @@ export default function AdminEvents() {
             </div>
             <div><label className="label">Registration Link (optional)</label><input className="input" placeholder="https://..." value={form.registrationLink} onChange={e=>setForm({...form,registrationLink:e.target.value})}/></div>
           </div>
-          <div className="flex gap-3 mt-5">
+          <div className="flex flex-wrap gap-3 mt-5">
             <button
               className="btn-primary"
               onClick={() => saveM.mutate()}
@@ -177,3 +177,4 @@ export default function AdminEvents() {
     </div>
   )
 }
+

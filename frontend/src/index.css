@@ -87,10 +87,12 @@
   .tbl td { @apply px-4 py-3.5 text-slate-300 text-sm border-b border-white/[0.04]; }
   .tbl tr:last-child td { @apply border-none; }
   .tbl tbody tr:hover td { @apply bg-white/[0.02]; }
+  /* Horizontal scroll wrapper so tables never overflow on mobile */
+  .tbl-wrap { @apply w-full overflow-x-auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
 
   /* Stat cards */
   .stat-card { @apply card p-5 flex flex-col gap-1.5; }
-  .stat-num { @apply font-display text-2xl font-bold text-white; }
+  .stat-num { @apply font-display text-xl sm:text-2xl font-bold text-white; }
   .stat-label { @apply text-xs text-slate-500 font-mono uppercase tracking-wider; }
   .stat-delta-up { @apply text-xs text-emerald-400 font-medium; }
   .stat-delta-down { @apply text-xs text-red-400 font-medium; }
@@ -106,4 +108,19 @@
       linear-gradient(90deg, rgba(79,70,229,0.035) 1px, transparent 1px);
     background-size: 52px 52px;
   }
+
+  /* Mobile sidebar slide-in drawer */
+  .sidebar-drawer {
+    @apply fixed inset-y-0 left-0 z-50 flex flex-col;
+    animation: slideInLeft 0.22s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  .sidebar-overlay {
+    @apply fixed inset-0 z-50 flex;
+  }
 }
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0.6; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
