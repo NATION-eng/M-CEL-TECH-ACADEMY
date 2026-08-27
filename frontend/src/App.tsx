@@ -10,6 +10,7 @@ import StudentLayout from './components/layout/StudentLayout'
 import InstructorLayout from './components/layout/InstructorLayout'
 import AdminLayout from './components/layout/AdminLayout'
 import SuperAdminLayout from './components/layout/SuperAdminLayout'
+import PWAInstallBanner from './components/common/PWAInstallBanner'
 
 // Every page below is lazy-loaded. Previously all ~48 pages across all four
 // portals were bundled into a single ~965KB chunk, so a first-time visitor
@@ -217,6 +218,7 @@ export default function App() {
       } />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    <PWAInstallBanner />
     </Suspense>
   )
 }

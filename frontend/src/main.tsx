@@ -32,6 +32,29 @@ function MaybeGoogleProvider({ children }: { children: React.ReactNode }) {
   return <GoogleOAuthProvider clientId={googleClientId}>{children}</GoogleOAuthProvider>
 }
 
+// Register Service Worker for PWA capabilities
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then((reg) => {
+        reg.onupdatefound = () => {
+          const installingWorker = reg.installing;
+          if (installingWorker) {
+            installingWorker.onstatechange = () => {
+              if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                console.log('New M-CEL TECH ACADEMY version available.');
+              }
+            };
+          }
+        };
+      })
+      .catch((err) => {
+        console.error('PWA Service Worker registration failed:', err);
+      });
+  });
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ErrorBoundary>
