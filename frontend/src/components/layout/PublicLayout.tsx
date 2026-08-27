@@ -210,7 +210,8 @@ export default function PublicLayout() {
           <div className="border-t border-white/[0.06] pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
             <p className="text-slate-600 text-xs">© {new Date().getFullYear()} M-CEL TECH ACADEMY. All rights reserved.</p>
             <div className="flex gap-5">
-              {['Privacy Policy','Terms of Use'].map(l => <a key={l} href="#" className="text-slate-600 hover:text-slate-400 text-xs transition-colors">{l}</a>)}
+              <Link to="/privacy" className="text-slate-500 hover:text-slate-300 text-xs transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="text-slate-500 hover:text-slate-300 text-xs transition-colors">Terms of Use</Link>
             </div>
           </div>
         </div>

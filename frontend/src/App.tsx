@@ -34,6 +34,8 @@ const RegisterPage = lazy(() => import('./pages/public/RegisterPage'))
 const ForgotPasswordPage = lazy(() => import('./pages/public/ForgotPasswordPage'))
 const ResetPasswordPage = lazy(() => import('./pages/public/ResetPasswordPage'))
 const VerifyCertPage = lazy(() => import('./pages/public/VerifyCertPage'))
+const PrivacyPolicyPage = lazy(() => import('./pages/public/PrivacyPolicyPage'))
+const TermsPage = lazy(() => import('./pages/public/TermsPage'))
 
 // Student
 const StudentDashboard = lazy(() => import('./pages/student/Dashboard'))
@@ -128,6 +130,8 @@ export default function App() {
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/verify/:certNumber" element={<VerifyCertPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
       </Route>
 
       <Route path="/login" element={<LoginPage />} />
