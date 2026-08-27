@@ -1,19 +1,25 @@
 import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
 
-let mongoMemoryServer: MongoMemoryServer | null = null;
+let mongoMemoryServer: any = null;
 
 export const connectDB = async (): Promise<void> => {
   let uri = process.env.MONGO_URI;
-  if (!uri) {
-    throw new Error('MONGO_URI is not defined in environment variables.');
-  }
 
   if (process.env.USE_MEMORY_DB === 'true') {
-    console.log('🌱 Starting in-memory MongoDB server...');
-    mongoMemoryServer = await MongoMemoryServer.create();
-    uri = mongoMemoryServer.getUri();
-    console.log(`🌱 In-memory MongoDB server started at: ${uri}`);
+    try {
+      console.log('🌱 Starting in-memory MongoDB server...');
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { MongoMemoryServer } = require('mongodb-memory-server');
+      mongoMemoryServer = await MongoMemoryServer.create();
+      uri = mongoMemoryServer.getUri();
+      console.log(`🌱 In-memory MongoDB server started at: ${uri}`);
+    } catch {
+      console.warn('⚠️  mongodb-memory-server not available, using MONGO_URI');
+    }
+  }
+
+  if (!uri) {
+    throw new Error('MONGO_URI is not defined in environment variables.');
   }
 
   mongoose.connection.on('connected', () => {
