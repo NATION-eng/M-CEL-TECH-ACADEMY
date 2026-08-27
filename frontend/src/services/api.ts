@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { useAuthStore } from '../store/auth.store'
 
-const api = axios.create({ baseURL: '/api/v1', headers: { 'Content-Type': 'application/json' }, timeout: 30000 })
+const BASE_API_URL = import.meta.env.VITE_API_URL || '/api/v1'
+
+const api = axios.create({ baseURL: BASE_API_URL, headers: { 'Content-Type': 'application/json' }, timeout: 30000 })
 
 api.interceptors.request.use(cfg => {
   const t = useAuthStore.getState().accessToken
@@ -37,7 +39,7 @@ api.interceptors.response.use(r => r, async err => {
       return Promise.reject(err)
     }
     try {
-      const { data } = await axios.post('/api/v1/auth/refresh', { refreshToken: rt })
+      const { data } = await axios.post(`${BASE_API_URL}/auth/refresh`, { refreshToken: rt })
       const { accessToken, refreshToken } = data.data
       useAuthStore.getState().setAuth(useAuthStore.getState().user!, accessToken, refreshToken)
       orig.headers.Authorization = `Bearer ${accessToken}`
@@ -141,7 +143,7 @@ export const paymentAPI = {
   // Built for use as an <a href> / window.open target — auth header is attached
   // via axios elsewhere, but a direct link needs the token appended for the
   // browser's native download, so callers should use downloadReceipt() instead.
-  receiptUrl: (paymentId: string, txRef: string) => `/api/v1/payments/${paymentId}/receipt/${txRef}`,
+  receiptUrl: (paymentId: string, txRef: string) => `${BASE_API_URL}/payments/${paymentId}/receipt/${txRef}`,
   downloadReceipt: (paymentId: string, txRef: string) =>
     api.get(`/payments/${paymentId}/receipt/${txRef}`, { responseType: 'blob' }),
 }
