@@ -37,7 +37,7 @@ export const streamReceiptPdf = (res: Response, data: ReceiptData): void => {
   doc
     .fontSize(20)
     .fillColor('#4F46E5')
-    .text('Masterview Digital Innovation Academy', { align: 'left' })
+    .text('M-CEL TECH ACADEMY', { align: 'left' })
     .fontSize(10)
     .fillColor('#64748B')
     .text('Payment Receipt', { align: 'left' })

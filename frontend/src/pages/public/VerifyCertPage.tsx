@@ -21,7 +21,9 @@ export default function VerifyCertPage() {
   return (
     <div className="min-h-screen bg-ink-900 grid-bg flex items-center justify-center p-4">
       <div className="w-full max-w-md text-center">
-        <div className="text-4xl mb-4"><Shield size={48} className="mx-auto text-brand-400"/></div>
+        <div className="inline-flex items-center justify-center p-2.5 bg-white rounded-2xl shadow-lg mb-5">
+          <img src="/logo.png" alt="M-CEL TECH ACADEMY" className="h-10 w-auto object-contain" />
+        </div>
         <h1 className="font-display text-2xl font-bold text-white mb-6">Certificate Verification</h1>
         <div className="card p-8">
           {status === 'loading' && <><Loader size={32} className="animate-spin text-brand-400 mx-auto mb-3"/><p className="text-slate-400">Verifying certificate...</p></>}
@@ -39,7 +41,7 @@ export default function VerifyCertPage() {
           {status === 'revoked' && <><XCircle size={48} className="text-red-400 mx-auto mb-4"/><h2 className="font-display text-xl font-bold text-white mb-2">Certificate Revoked</h2><p className="text-slate-400 text-sm">This certificate has been revoked by the academy.</p></>}
           {status === 'invalid' && <><XCircle size={48} className="text-red-400 mx-auto mb-4"/><h2 className="font-display text-xl font-bold text-white mb-2">Not Found</h2><p className="text-slate-400 text-sm">No certificate found with this number. Check the certificate and try again.</p></>}
         </div>
-        <p className="text-slate-600 text-xs mt-4">Powered by Masterview Digital Innovation Academy</p>
+        <p className="text-slate-600 text-xs mt-4">Powered by M-CEL TECH ACADEMY</p>
       </div>
     </div>
   )

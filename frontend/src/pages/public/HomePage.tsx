@@ -56,7 +56,7 @@ function TerminalCard() {
         <div className="w-2.5 h-2.5 rounded-full bg-red-500/70"/>
         <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70"/>
         <div className="w-2.5 h-2.5 rounded-full bg-green-500/70"/>
-        <span className="ml-3 font-mono text-[10px] text-slate-500">server.js — Masterview Academy</span>
+        <span className="ml-3 font-mono text-[10px] text-slate-500">server.js — M-CEL TECH ACADEMY</span>
       </div>
       <div className="p-5 font-mono text-xs leading-6 min-h-[260px]">
         {CODE_LINES.map((line, i) => (
@@ -97,7 +97,7 @@ const WHY = [
 ]
 
 const TESTIMONIALS = [
-  { name:'Chukwuemeka Obi', role:'Frontend Dev @ Flutterwave', text:'Masterview\'s structured badge system forced me to actually master each level before moving on. That rigor is why I got hired.', rating: 5 },
+  { name:'Chukwuemeka Obi', role:'Frontend Dev @ Flutterwave', text:'M-CEL TECH ACADEMY\'s structured badge system forced me to actually master each level before moving on. That rigor is why I got hired.', rating: 5 },
   { name:'Adaeze Nwosu', role:'UI/UX Designer @ Paystack', text:'I went from knowing nothing about design to landing a role at one of Nigeria\'s top fintechs in 8 months. The instructors are genuinely world-class.', rating: 5 },
   { name:'Babatunde Adeyemi', role:'ML Engineer @ IrokoTV', text:'The AI track is no joke. Real hands-on projects, real feedback. I shipped my first ML model before I even graduated.', rating: 5 },
 ]
@@ -116,7 +116,7 @@ const FAQ = [
   { q:'Can I pay in installments?', a:'Yes. We require a deposit of more than 50% of the course fee to unlock full access, with the balance payable before program completion.' },
   { q:'Is there a physical campus?', a:'Yes, we are based in Port Harcourt, Rivers State. We also offer a 100% online option for all programs.' },
   { q:'What happens after I complete a program?', a:'You receive a verifiable digital certificate, access to our alumni network, and dedicated career support including CV reviews and job referrals.' },
-  { q:'Are the instructors active professionals?', a:'Every instructor at Masterview is currently working in their field. We do not hire instructors who only teach.' },
+  { q:'Are the instructors active professionals?', a:'Every instructor at M-CEL TECH ACADEMY is currently working in their field. We do not hire instructors who only teach.' },
 ]
 
 export default function HomePage() {
@@ -150,7 +150,7 @@ export default function HomePage() {
               </h1>
 
               <p className="text-slate-400 text-lg leading-relaxed max-w-lg mb-10">
-                Masterview Digital Innovation Academy trains you in the exact skills Nigerian tech companies are hiring for — through structured badge levels, real projects, and industry mentorship.
+                M-CEL TECH ACADEMY trains you in the exact skills Nigerian tech companies are hiring for — through structured badge levels, real projects, and industry mentorship.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-12">
@@ -393,7 +393,7 @@ export default function HomePage() {
             <div className="absolute inset-0 grid-bg opacity-30"/>
             <div className="relative z-10">
               <h2 className="font-display text-3xl lg:text-4xl font-bold text-white mb-4">Ready to start your tech career?</h2>
-              <p className="text-indigo-200 max-w-lg mx-auto mb-8">Join hundreds of Nigerians who've transformed their careers with Masterview. Limited cohort spots available.</p>
+              <p className="text-indigo-200 max-w-lg mx-auto mb-8">Join hundreds of students who've transformed their careers with M-CEL TECH ACADEMY. Limited cohort spots available.</p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link to="/admissions" className="btn-accent px-8 py-3.5 text-base">Apply Now — It's Free</Link>
                 <a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" className="btn-outline border-white/30 text-white hover:bg-white/10 px-8 py-3.5 text-base">Talk to an Advisor</a>

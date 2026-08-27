@@ -59,10 +59,12 @@ export default function PublicLayout() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-600 to-cyan-500 flex items-center justify-center font-display font-bold text-white text-sm shadow-lg shadow-brand-600/40 group-hover:shadow-brand-600/60 transition-shadow">M</div>
-              <div className="hidden sm:block">
-                <div className="font-display font-bold text-white text-[13px] leading-none">Masterview</div>
-                <div className="font-mono text-[9px] text-slate-600 leading-none mt-0.5 tracking-wider">DIGITAL INNOVATION ACADEMY</div>
+              <div className="h-9 px-2 bg-white rounded-lg flex items-center justify-center shadow-md group-hover:shadow-brand-500/20 transition-all">
+                <img src="/logo.png" alt="M-CEL TECH" className="h-6 w-auto object-contain" />
+              </div>
+              <div>
+                <div className="font-display font-bold text-white text-[14px] leading-none tracking-tight">M-CEL TECH</div>
+                <div className="font-mono text-[9px] text-brand-400 font-semibold leading-none mt-0.5 tracking-wider uppercase">ACADEMY</div>
               </div>
             </Link>
 
@@ -125,10 +127,15 @@ export default function PublicLayout() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-10 mb-12">
             <div className="col-span-2 sm:col-span-3 lg:col-span-2">
               <Link to="/" className="flex items-center gap-2.5 mb-4 w-fit">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-600 to-cyan-500 flex items-center justify-center font-display font-bold text-white text-sm">M</div>
-                <span className="font-display font-bold text-white">Masterview DIA</span>
+                <div className="h-9 px-2 bg-white rounded-lg flex items-center justify-center shadow-md">
+                  <img src="/logo.png" alt="M-CEL TECH" className="h-6 w-auto object-contain" />
+                </div>
+                <div>
+                  <span className="font-display font-bold text-white text-base tracking-tight block leading-none">M-CEL TECH</span>
+                  <span className="font-mono text-[9px] text-brand-400 font-semibold tracking-wider uppercase">ACADEMY</span>
+                </div>
               </Link>
-              <p className="text-slate-500 text-sm leading-relaxed max-w-xs">Transforming ambitious Nigerians into job-ready digital professionals through world-class technology training.</p>
+              <p className="text-slate-500 text-sm leading-relaxed max-w-xs">Transforming ambitious minds into job-ready digital professionals through world-class technology training.</p>
               <div className="flex gap-2 mt-5">
                 {[
                   { Icon: Twitter, href: SOCIAL_LINKS.x, label: 'X (Twitter)' },
@@ -169,7 +176,7 @@ export default function PublicLayout() {
             </div>
           </div>
           <div className="border-t border-white/[0.06] pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
-            <p className="text-slate-600 text-xs">© {new Date().getFullYear()} Masterview Digital Innovation Academy. All rights reserved.</p>
+            <p className="text-slate-600 text-xs">© {new Date().getFullYear()} M-CEL TECH ACADEMY. All rights reserved.</p>
             <div className="flex gap-5">
               {['Privacy Policy','Terms of Use'].map(l => <a key={l} href="#" className="text-slate-600 hover:text-slate-400 text-xs transition-colors">{l}</a>)}
             </div>

@@ -34,7 +34,7 @@ export interface ISettings extends Document {
 const SettingsSchema = new Schema<ISettings>(
   {
     general: {
-      academyName: { type: String, default: 'Masterview Digital Innovation Academy' },
+      academyName: { type: String, default: 'M-CEL TECH ACADEMY' },
       tagline: { type: String, default: 'Become a Job-Ready Digital Professional' },
       address: { type: String, default: '' },
       email: { type: String, default: '' },

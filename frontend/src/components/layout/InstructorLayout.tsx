@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { LayoutDashboard, BookOpen, CalendarCheck, Star, Users, LogOut, Menu, X, MessageSquare, User, Megaphone, FolderOpen, BarChart3, Upload } from 'lucide-react'
 import NotificationBell from '../NotificationBell'
@@ -50,10 +50,12 @@ export default function InstructorLayout() {
     <aside className="w-64 sm:w-60 bg-ink-800 border-r border-white/[0.07] flex flex-col h-full">
       <div className="p-5 border-b border-white/[0.07] flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-purple-600 to-brand-600 flex items-center justify-center font-display font-bold text-white text-xs">M</div>
-          <div>
-            <div className="font-display font-bold text-white text-xs leading-none">Masterview</div>
-            <div className="font-mono text-[9px] text-slate-600 mt-0.5">Instructor Portal</div>
+          <div className="h-8 px-1.5 bg-white rounded-lg flex items-center justify-center shrink-0 shadow-sm">
+            <img src="/logo.png" alt="M-CEL TECH" className="h-5 w-auto object-contain" />
+          </div>
+          <div className="min-w-0">
+            <div className="font-display font-bold text-white text-xs leading-none truncate">M-CEL TECH</div>
+            <div className="font-mono text-[9px] text-slate-500 mt-0.5">Instructor Portal</div>
           </div>
         </Link>
         <button className="lg:hidden btn-ghost p-1" onClick={closeSidebar} aria-label="Close menu"><X size={16}/></button>

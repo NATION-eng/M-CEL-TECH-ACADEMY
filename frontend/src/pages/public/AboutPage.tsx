@@ -14,8 +14,8 @@ export default function AboutPage() {
       <section className="section-pad">
         <div className="page-container max-w-4xl">
           <div className="section-eyebrow">Our Story</div>
-          <h1 className="font-display text-4xl lg:text-5xl font-bold text-white mb-6">We exist to close the digital skills gap in Nigeria.</h1>
-          <p className="text-slate-400 text-lg leading-relaxed mb-6">Masterview Digital Innovation Academy was founded with one belief: talented Nigerians deserve world-class technology education, taught by people who are actually in the industry.</p>
+          <h1 className="font-display text-4xl lg:text-5xl font-bold text-white mb-6">We exist to close the digital skills gap.</h1>
+          <p className="text-slate-400 text-lg leading-relaxed mb-6">M-CEL TECH ACADEMY was founded with one belief: talented individuals deserve world-class technology education, taught by people who are actually in the industry.</p>
           <p className="text-slate-400 leading-relaxed">We built the academy we wished existed — with a structured badge-based curriculum, real projects at every level, and instructors who are active professionals, not career teachers. The result is a graduate who is genuinely job-ready, not just certificate-ready.</p>
         </div>
       </section>
@@ -58,7 +58,7 @@ export default function AboutPage() {
 
       <section className="section-pad bg-ink-800/30">
         <div className="page-container text-center">
-          <h2 className="font-display text-3xl font-bold text-white mb-4">Join the Masterview family</h2>
+          <h2 className="font-display text-3xl font-bold text-white mb-4">Join the M-CEL TECH ACADEMY family</h2>
           <p className="text-slate-400 mb-8 max-w-md mx-auto">500+ graduates. Growing community. Real careers. Your journey starts with one application.</p>
           <Link to="/admissions" className="btn-accent px-8 py-3.5 text-base">Apply Now <ArrowRight size={16}/></Link>
         </div>

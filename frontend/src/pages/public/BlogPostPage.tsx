@@ -41,7 +41,7 @@ export default function BlogPostPage() {
   const allPosts = Array.isArray(allPostsData) ? allPostsData : (allPostsData?.posts ?? [])
   const related = allPosts.filter((p: any) => (p.slug ?? p._id) !== (post.slug ?? post._id)).slice(0, 2)
 
-  const authorName = post.author ? `${post.author.firstName ?? ''} ${post.author.lastName ?? ''}`.trim() : 'Masterview'
+  const authorName = post.author ? `${post.author.firstName ?? ''} ${post.author.lastName ?? ''}`.trim() : 'M-CEL TECH ACADEMY'
   const authorRole = post.author?.role === 'super_admin' ? 'Super Admin' : (post.author?.role === 'admin' ? 'Admin' : 'Instructor')
   const dateStr = post.publishedAt ?? post.createdAt ? new Date(post.publishedAt ?? post.createdAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }) : '—'
   const readTime = post.readTime ?? Math.ceil((post.content?.length ?? 300) / 250)
@@ -89,7 +89,7 @@ export default function BlogPostPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {related.map((r: any) => {
                   const rSlug = r.slug ?? r._id
-                  const rAuthor = r.author ? `${r.author.firstName ?? ''} ${r.author.lastName ?? ''}`.trim() : 'Masterview'
+                  const rAuthor = r.author ? `${r.author.firstName ?? ''} ${r.author.lastName ?? ''}`.trim() : 'M-CEL TECH ACADEMY'
                   const rReadTime = r.readTime ?? Math.ceil((r.content?.length ?? 300) / 250)
                   return (
                     <Link key={rSlug} to={`/blog/${rSlug}`} className="card-hover p-5 group">

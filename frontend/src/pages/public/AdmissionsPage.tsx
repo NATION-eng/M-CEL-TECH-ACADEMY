@@ -45,7 +45,7 @@ export default function AdmissionsPage() {
         <div className="page-container max-w-5xl">
           <div className="text-center mb-14">
             <div className="section-eyebrow justify-center">Admissions</div>
-            <h1 className="font-display text-4xl lg:text-5xl font-bold text-white mb-5">Apply to Masterview</h1>
+            <h1 className="font-display text-4xl lg:text-5xl font-bold text-white mb-5">Apply to M-CEL TECH ACADEMY</h1>
             <p className="text-slate-400 text-lg max-w-xl mx-auto">Limited cohort spots. No experience required. Just ambition and commitment.</p>
           </div>
 
@@ -95,7 +95,7 @@ export default function AdmissionsPage() {
                   </div>
                   <div>
                     <label className="label">Tell us about yourself (optional)</label>
-                    <textarea className="input h-20 resize-none" placeholder="Your background, goals, why Masterview..." value={form.message} onChange={e=>setForm({...form,message:e.target.value})}/>
+                    <textarea className="input h-20 resize-none" placeholder="Your background, goals, why M-CEL TECH ACADEMY..." value={form.message} onChange={e=>setForm({...form,message:e.target.value})}/>
                   </div>
                   <button type="submit" className="btn-accent w-full justify-center py-3 text-base" disabled={busy}>
                     {busy ? <><Loader2 size={16} className="animate-spin"/> {redirecting ? 'Redirecting to payment...' : 'Submitting...'}</> : <>Continue to Payment <ArrowRight size={16}/></>}

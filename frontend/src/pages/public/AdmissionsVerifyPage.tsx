@@ -47,7 +47,7 @@ export default function AdmissionsVerifyPage() {
         {status === 'success' && (
           <>
             <CheckCircle2 size={40} className="mx-auto text-emerald-400 mb-4" />
-            <h1 className="font-display text-lg font-bold text-white mb-1">Welcome to Masterview!</h1>
+            <h1 className="font-display text-lg font-bold text-white mb-1">Welcome to M-CEL TECH ACADEMY!</h1>
             <p className="text-slate-400 text-sm mb-4">
               Your deposit is confirmed and your student account has been created{email ? ` for ${email}` : ''}.
             </p>

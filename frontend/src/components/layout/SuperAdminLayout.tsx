@@ -1,4 +1,4 @@
-﻿import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { LayoutDashboard, Users, Settings, LogOut, Menu, X, Crown, ShieldCheck, MessageSquare, ClipboardList } from 'lucide-react'
 import NotificationBell from '../NotificationBell'
@@ -45,10 +45,12 @@ export default function SuperAdminLayout() {
     <aside className="w-64 sm:w-60 bg-ink-800 border-r border-white/[0.07] flex flex-col h-full">
       <div className="p-5 border-b border-white/[0.07] flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-yellow-500 to-amber-500 flex items-center justify-center text-ink-900 text-xs"><Crown size={14}/></div>
-          <div>
-            <div className="font-display font-bold text-white text-xs leading-none">Masterview</div>
-            <div className="font-mono text-[9px] text-yellow-600 mt-0.5">Super Admin</div>
+          <div className="h-8 px-1.5 bg-white rounded-lg flex items-center justify-center shrink-0 shadow-sm">
+            <img src="/logo.png" alt="M-CEL TECH" className="h-5 w-auto object-contain" />
+          </div>
+          <div className="min-w-0">
+            <div className="font-display font-bold text-white text-xs leading-none truncate">M-CEL TECH</div>
+            <div className="font-mono text-[9px] text-yellow-500 mt-0.5">Super Admin</div>
           </div>
         </Link>
         <button className="lg:hidden btn-ghost p-1" onClick={closeSidebar} aria-label="Close menu"><X size={16}/></button>

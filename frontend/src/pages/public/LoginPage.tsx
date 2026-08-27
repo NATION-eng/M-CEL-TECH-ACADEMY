@@ -59,9 +59,14 @@ export default function LoginPage({ portal }: LoginPageProps) {
     <div className="min-h-screen bg-ink-900 grid-bg flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 mb-6">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-600 to-cyan-500 flex items-center justify-center font-display font-bold text-white">M</div>
-            <span className="font-display font-bold text-white text-lg">Masterview</span>
+          <Link to="/" className="inline-flex items-center gap-2.5 mb-6">
+            <div className="h-10 px-2.5 bg-white rounded-xl flex items-center justify-center shadow-lg shadow-brand-500/10">
+              <img src="/logo.png" alt="M-CEL TECH" className="h-7 w-auto object-contain" />
+            </div>
+            <div className="text-left">
+              <div className="font-display font-bold text-white text-base leading-none tracking-tight">M-CEL TECH</div>
+              <div className="font-mono text-[9px] text-brand-400 font-semibold tracking-wider uppercase mt-0.5">ACADEMY</div>
+            </div>
           </Link>
           {label && (
             <div className="inline-flex items-center gap-1.5 badge badge-indigo mb-3"><Icon size={12}/> {label} Portal</div>

@@ -31,7 +31,7 @@ export default function BlogPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map(p => {
                 const slug = p.slug ?? p._id
-                const author = p.author ? `${p.author.firstName ?? ''} ${p.author.lastName ?? ''}`.trim() : 'Masterview'
+                const author = p.author ? `${p.author.firstName ?? ''} ${p.author.lastName ?? ''}`.trim() : 'M-CEL TECH ACADEMY'
                 const date = p.publishedAt ?? p.createdAt
                 const readTime = p.readTime ?? Math.ceil((p.content?.length ?? 300) / 250)
                 return (

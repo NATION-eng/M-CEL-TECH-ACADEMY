@@ -45,7 +45,7 @@ export default function AdminDashboard() {
     <div className="space-y-7">
       <div>
         <h1 className="font-display text-2xl font-bold text-white">Admin Dashboard</h1>
-        <p className="text-slate-500 text-sm mt-1">Masterview Digital Innovation Academy</p>
+        <p className="text-slate-500 text-sm mt-1">M-CEL TECH ACADEMY</p>
       </div>
 
       {/* Stats */}

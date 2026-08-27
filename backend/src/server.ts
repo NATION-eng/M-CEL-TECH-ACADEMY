@@ -200,7 +200,7 @@ const start = async (): Promise<void> => {
   await seedDefaultAccounts();
   await seedAcademyStructure();
   const server = app.listen(PORT, () => {
-    console.log(`🚀 Masterview API running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
+    console.log(`🚀 M-CEL TECH ACADEMY API running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
   });
 
   const handleShutdown = async (signal: string) => {

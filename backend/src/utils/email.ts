@@ -49,7 +49,7 @@ export const sendEmail = async ({ to, subject, html }: SendEmailOptions): Promis
   }
   try {
     await getTransporter().sendMail({
-      from: process.env.EMAIL_FROM || 'Masterview Academy <noreply@masterviewacademy.com>',
+      from: process.env.EMAIL_FROM || 'M-CEL TECH ACADEMY <noreply@mceltechacademy.com>',
       to,
       subject,
       html,
@@ -61,7 +61,7 @@ export const sendEmail = async ({ to, subject, html }: SendEmailOptions): Promis
 
 export const emailTemplates = {
   welcomeStudent: (firstName: string) => ({
-    subject: 'Welcome to Masterview Digital Innovation Academy!',
+    subject: 'Welcome to M-CEL TECH ACADEMY!',
     html: `<div style="font-family:sans-serif;max-width:560px;margin:0 auto">
       <h2 style="color:#4F46E5">Welcome, ${firstName}! 🎉</h2>
       <p>Your account has been created successfully. You're one step closer to becoming a job-ready digital professional.</p>
@@ -69,7 +69,7 @@ export const emailTemplates = {
     </div>`,
   }),
   paymentReceived: (firstName: string, amount: number, balance: number) => ({
-    subject: 'Payment Received — Masterview Academy',
+    subject: 'Payment Received — M-CEL TECH ACADEMY',
     html: `<div style="font-family:sans-serif;max-width:560px;margin:0 auto">
       <h2 style="color:#10B981">Payment Confirmed</h2>
       <p>Hi ${firstName}, we've received your payment of <strong>₦${amount.toLocaleString()}</strong>.</p>
@@ -87,17 +87,17 @@ export const emailTemplates = {
     </div>`,
   }),
   accountInvitation: (firstName: string, role: string, setPasswordUrl: string) => ({
-    subject: `Your ${role === 'instructor' ? 'Instructor' : 'Student'} Account is Ready — Masterview Academy`,
+    subject: `Your ${role === 'instructor' ? 'Instructor' : 'Student'} Account is Ready — M-CEL TECH ACADEMY`,
     html: `<div style="font-family:sans-serif;max-width:560px;margin:0 auto">
-      <h2 style="color:#4F46E5">Welcome to Masterview, ${firstName}!</h2>
-      <p>An administrator has created a ${role} account for you at Masterview Digital Innovation Academy.</p>
+      <h2 style="color:#4F46E5">Welcome to M-CEL TECH ACADEMY, ${firstName}!</h2>
+      <p>An administrator has created a ${role} account for you at M-CEL TECH ACADEMY.</p>
       <p>To activate your account, set your password using the secure link below (valid for 7 days):</p>
       <p><a href="${setPasswordUrl}" style="display:inline-block;background:#4F46E5;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;margin:8px 0">Set Your Password</a></p>
       <p style="color:#64748B;font-size:13px">If you didn't expect this email, you can safely ignore it.</p>
     </div>`,
   }),
   passwordReset: (firstName: string, resetUrl: string) => ({
-    subject: 'Reset Your Password — Masterview Academy',
+    subject: 'Reset Your Password — M-CEL TECH ACADEMY',
     html: `<div style="font-family:sans-serif;max-width:560px;margin:0 auto">
       <h2 style="color:#4F46E5">Password Reset Request</h2>
       <p>Hi ${firstName}, we received a request to reset your password.</p>
@@ -106,14 +106,14 @@ export const emailTemplates = {
     </div>`,
   }),
   passwordChanged: (firstName: string) => ({
-    subject: 'Your Password Was Changed — Masterview Academy',
+    subject: 'Your Password Was Changed — M-CEL TECH ACADEMY',
     html: `<div style="font-family:sans-serif;max-width:560px;margin:0 auto">
       <h2 style="color:#4F46E5">Password Changed</h2>
       <p>Hi ${firstName}, your account password was just changed. If this wasn't you, contact support immediately.</p>
     </div>`,
   }),
   admissionAccountReady: (firstName: string, setupUrl: string, program: string) => ({
-    subject: 'Payment Confirmed — Set Up Your Masterview Account',
+    subject: 'Payment Confirmed — Set Up Your M-CEL TECH ACADEMY Account',
     html: `<div style="font-family:sans-serif;max-width:560px;margin:0 auto">
       <h2 style="color:#10B981">Payment Confirmed!</h2>
       <p>Hi ${firstName}, we've received your deposit for <strong>${program}</strong> and your account has been created.</p>

@@ -138,7 +138,7 @@ export const initializeFlutterwave = async (req: AuthRequest, res: Response): Pr
         customer: { email: req.user!.email, name: req.user!.fullName },
         meta: { paymentId: payment._id.toString(), enrollmentId, studentId: req.user!._id.toString() },
         customizations: {
-          title: 'Masterview Digital Innovation Academy',
+          title: 'M-CEL TECH ACADEMY',
           description: `Payment for ${course?.title ?? 'course'}`,
         },
       },
