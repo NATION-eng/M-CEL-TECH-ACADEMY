@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Plus, BookOpen, Users, Edit3, Archive, MoreVertical, Loader2, Eye, EyeOff, Trash2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -112,9 +112,14 @@ export default function AdminCourses() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-bold text-white">Courses</h1>
-        <button className="btn-primary text-sm" onClick={() => { setForm(emptyForm); setShowAdd(true) }}><Plus size={15}/> Add Course</button>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-display text-2xl font-bold text-white">Courses</h1>
+          <p className="text-sm text-slate-500 mt-1">Manage training tracks, pricing, enrollment capacity, and publishing.</p>
+        </div>
+        <button className="btn-primary text-sm shrink-0 self-start sm:self-auto" onClick={() => { setForm(emptyForm); setShowAdd(true) }}>
+          <Plus size={15}/> Add Course
+        </button>
       </div>
 
       <div className="flex gap-1 bg-ink-800/60 rounded-xl p-1 w-fit">

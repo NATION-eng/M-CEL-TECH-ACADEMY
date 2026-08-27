@@ -54,9 +54,12 @@ export default function InstructorProjects() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="font-display text-2xl font-bold text-white">Student Projects</h1>
-        <select className="input w-64" value={courseId} onChange={e=>setCourseId(e.target.value)}>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 className="font-display text-2xl font-bold text-white">Student Projects</h1>
+          <p className="text-sm text-slate-500 mt-0.5">Review capstone submissions, provide feedback, and assign grades.</p>
+        </div>
+        <select className="input w-full sm:w-64 shrink-0" value={courseId} onChange={e=>setCourseId(e.target.value)}>
           <option value="">All my courses</option>
           {courses.map((c:any) => <option key={c._id} value={c._id}>{c.title}</option>)}
         </select>

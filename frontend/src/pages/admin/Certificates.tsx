@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Trophy, Plus, Shield, ShieldOff, Search, Download, Loader2, CheckCircle2, XCircle, AlertTriangle } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -124,12 +124,17 @@ export default function AdminCertificates() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-bold text-white">Certificates</h1>
-        <button className="btn-primary text-sm" onClick={() => setShowIssue(true)}><Plus size={15}/> Issue Certificate</button>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-display text-2xl font-bold text-white">Certificates</h1>
+          <p className="text-sm text-slate-500 mt-1">Issue, manage, and verify tamper-proof digital certificates.</p>
+        </div>
+        <button className="btn-primary text-sm shrink-0 self-start sm:self-auto" onClick={() => setShowIssue(true)}>
+          <Plus size={15}/> Issue Certificate
+        </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         {[{label:'Total Issued',val:certs.length,color:'text-white'},{label:'Active',val:totalActive,color:'text-emerald-400'},{label:'Revoked',val:totalRevoked,color:'text-red-400'}].map(s=>(
           <div key={s.label} className="stat-card"><div className={`font-display text-2xl font-bold ${s.color}`}>{s.val}</div><div className="stat-label">{s.label}</div></div>
         ))}

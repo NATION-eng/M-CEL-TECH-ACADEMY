@@ -104,16 +104,19 @@ export default function InstructorCourses() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-bold text-white">My Courses</h1>
-        {!showForm && <button className="btn-primary text-sm" onClick={openCreate}><Plus size={15}/> New Course</button>}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-display text-2xl font-bold text-white">My Courses</h1>
+          <p className="text-sm text-slate-500 mt-1">Manage curriculum, modules, lessons, and assignments for your assigned tracks.</p>
+        </div>
+        {!showForm && <button className="btn-primary text-sm shrink-0 self-start sm:self-auto" onClick={openCreate}><Plus size={15}/> New Course</button>}
       </div>
 
       {showForm && (
-        <div className="card p-6 border-brand-600/30 space-y-4">
+        <div className="card p-5 sm:p-6 border-brand-600/30 space-y-4">
           <h2 className="font-display font-semibold text-white">{editingId ? 'Edit Course' : 'Create Course'}</h2>
           <CourseFormFields form={form} setForm={setForm} canEditPricing={!editingId}/>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             <button className="btn-primary" onClick={()=>saveMut.mutate()} disabled={saveMut.isPending || (!editingId && (!form.title.trim() || !form.departmentId || !form.price))}>
               {saveMut.isPending ? <Loader2 size={14} className="animate-spin"/> : 'Save'}
             </button>

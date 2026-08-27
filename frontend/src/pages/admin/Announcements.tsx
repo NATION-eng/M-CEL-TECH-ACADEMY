@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Plus, Pin, Trash2, Edit3, Megaphone, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -86,18 +86,23 @@ export default function AdminAnnouncements() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-bold text-white">Announcements</h1>
-        <button className="btn-primary text-sm" onClick={() => setShowAdd(true)}><Plus size={15}/> New Announcement</button>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-display text-2xl font-bold text-white">Announcements</h1>
+          <p className="text-sm text-slate-500 mt-1">Broadcast announcements to students, instructors, or all staff.</p>
+        </div>
+        <button className="btn-primary text-sm shrink-0 self-start sm:self-auto" onClick={() => setShowAdd(true)}>
+          <Plus size={15}/> New Announcement
+        </button>
       </div>
 
       {(showAdd || editingId) && (
-        <div className="card p-6 border-brand-600/30">
+        <div className="card p-5 sm:p-6 border-brand-600/30">
           <h2 className="font-display font-semibold text-white mb-4">{editingId ? 'Edit Announcement' : 'New Announcement'}</h2>
           <div className="space-y-3">
             <div><label className="label">Title</label><input className="input" placeholder="Announcement title..." value={form.title} onChange={e=>setForm({...form,title:e.target.value})}/></div>
             <div><label className="label">Content</label><textarea className="input h-28 resize-none" placeholder="Write your announcement..." value={form.content} onChange={e=>setForm({...form,content:e.target.value})}/></div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="label">Target Audience</label>
                 <div className="flex flex-wrap gap-2 mt-1">

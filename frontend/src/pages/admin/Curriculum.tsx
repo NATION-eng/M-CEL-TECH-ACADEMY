@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ChevronRight, ChevronDown, Plus, School, Layers, BookOpen, Calendar, Loader2, LucideIcon } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -178,12 +178,12 @@ export default function AdminCurriculum() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-2xl font-bold text-white">Curriculum Management</h1>
-          <p className="text-slate-500 text-sm mt-1">Live from the database â€” expand a node to load its children</p>
+          <p className="text-slate-500 text-sm mt-1">Live hierarchy: Schools → Departments → Courses → Badges → Modules → Weeks → Lessons</p>
         </div>
-        <button className="btn-primary text-sm" onClick={() => setShowAdd({type:'school',parentId:'root'})}><Plus size={15}/> Add School</button>
+        <button className="btn-primary text-sm shrink-0 self-start sm:self-auto" onClick={() => setShowAdd({type:'school',parentId:'root'})}><Plus size={15}/> Add School</button>
       </div>
 
       <div className="card p-4">

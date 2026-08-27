@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Plus, Github, Globe, Star, Users, Layers, LucideIcon, Loader2, FolderGit2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -56,13 +56,16 @@ export default function StudentProjects() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-bold text-white">Projects</h1>
-        <button className="btn-primary text-sm" onClick={() => setShowForm(true)}><Plus size={15}/> Add Project</button>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-display text-2xl font-bold text-white">Projects</h1>
+          <p className="text-sm text-slate-500 mt-0.5">Build and submit your portfolio projects, personal builds, and capstones.</p>
+        </div>
+        <button className="btn-primary text-sm shrink-0 self-start sm:self-auto" onClick={() => setShowForm(true)}><Plus size={15}/> Add Project</button>
       </div>
 
       {showForm && (
-        <div className="card p-6">
+        <div className="card p-5 sm:p-6">
           <h2 className="font-display font-semibold text-white mb-5">Add New Project</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div><label className="label">Project Title</label><input className="input" placeholder="My Awesome Project" value={form.title} onChange={e=>setForm({...form,title:e.target.value})}/></div>

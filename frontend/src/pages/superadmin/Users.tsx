@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Search, UserX, UserCheck, Trash2, MoreVertical, Loader2, Plus } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -57,9 +57,12 @@ export default function SuperAdminUsers() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-bold text-white">All Users</h1>
-        <button className="btn-primary text-sm" onClick={() => setShowAdd(true)}><Plus size={15}/> Add Admin</button>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-display text-2xl font-bold text-white">All Users</h1>
+          <p className="text-sm text-slate-500 mt-1">Super Admin directory: view, manage roles, suspend, or invite staff.</p>
+        </div>
+        <button className="btn-primary text-sm shrink-0 self-start sm:self-auto" onClick={() => setShowAdd(true)}><Plus size={15}/> Add Admin</button>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -88,7 +91,8 @@ export default function SuperAdminUsers() {
             <Loader2 size={22} className="animate-spin mr-2"/> Loading users...
           </div>
         ) : (
-          <table className="tbl w-full">
+          <div className="tbl-wrap">
+            <table className="tbl w-full">
             <thead><tr><th>User</th><th>Role</th><th>Status</th><th>Joined</th><th></th></tr></thead>
             <tbody>
               {users.map(u => {
@@ -133,6 +137,7 @@ export default function SuperAdminUsers() {
               )}
             </tbody>
           </table>
+        </div>
         )}
       </div>
 

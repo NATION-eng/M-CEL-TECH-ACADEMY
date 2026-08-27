@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { Plus, Edit3, Trash2, Eye, FileText, Loader2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
@@ -85,9 +85,14 @@ export default function AdminBlog() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <h1 className="font-display text-2xl font-bold text-white">Blog</h1>
-        <button className="btn-primary text-sm" onClick={openCreate}><Plus size={15}/> New Post</button>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="font-display text-2xl font-bold text-white">Blog</h1>
+          <p className="text-sm text-slate-500 mt-1">Publish articles, academy news, and student spotlights.</p>
+        </div>
+        <button className="btn-primary text-sm shrink-0 self-start sm:self-auto" onClick={openCreate}>
+          <Plus size={15}/> New Post
+        </button>
       </div>
 
       {showAdd && (
