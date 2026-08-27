@@ -61,14 +61,14 @@ export default function AdmissionsPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Form */}
-            <div className="card p-8">
+            <div className="card p-5 sm:p-8">
               <h2 className="font-display text-xl font-bold text-white mb-6">Application Form</h2>
               <form className="space-y-4" onSubmit={e => { e.preventDefault(); applyMut.mutate() }}>
                   <div>
                     <label className="label">Full Name</label>
                     <input className="input" placeholder="Emeka Okonkwo" value={form.name} onChange={e=>setForm({...form,name:e.target.value})} required/>
                   </div>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label className="label">Email</label>
                       <input className="input" type="email" placeholder="you@example.com" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} required/>

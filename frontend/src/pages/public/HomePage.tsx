@@ -259,32 +259,72 @@ export default function HomePage() {
       {/* ── UPCOMING COHORTS ── */}
       <section className="section-pad">
         <div className="page-container">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-10">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div>
               <div className="section-eyebrow">Enrollment</div>
               <h2 className="font-display text-2xl lg:text-3xl font-bold text-white">Upcoming Cohorts</h2>
             </div>
             <Link to="/admissions" className="btn-outline text-sm">View all cohorts</Link>
           </div>
-          <div className="card overflow-hidden">
-            <table className="tbl w-full">
-              <thead><tr><th>Program</th><th>Start Date</th><th>Mode</th><th>Spots Left</th><th></th></tr></thead>
-              <tbody>
-                {COHORTS.map((c) => (
-                  <tr key={c.program}>
-                    <td className="font-medium text-white">{c.program}</td>
-                    <td>{c.start}</td>
-                    <td><span className={`badge ${c.mode.includes('Online') ? 'badge-indigo' : 'badge-cyan'}`}>{c.mode}</span></td>
-                    <td>
-                      <span className={`badge ${c.status === 'filling' ? 'badge-amber' : 'badge-green'}`}>
-                        {c.spots} left {c.status === 'filling' && '— Filling fast'}
-                      </span>
-                    </td>
-                    <td><Link to="/admissions" className="btn-primary text-xs py-1.5 px-3">Apply</Link></td>
+
+          {/* Mobile Card Layout (< sm) */}
+          <div className="space-y-3 sm:hidden">
+            {COHORTS.map((c) => (
+              <div key={c.program} className="card p-4 flex flex-col gap-3">
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <h3 className="font-semibold text-white text-sm">{c.program}</h3>
+                    <p className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
+                      <Clock size={12} className="text-slate-500"/>
+                      Starts: <span className="text-slate-200 font-medium">{c.start}</span>
+                    </p>
+                  </div>
+                  <span className={`badge shrink-0 text-[10px] ${c.mode.includes('Online') ? 'badge-indigo' : 'badge-cyan'}`}>
+                    {c.mode}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between pt-2.5 border-t border-white/[0.06]">
+                  <span className={`badge text-[11px] ${c.status === 'filling' ? 'badge-amber' : 'badge-green'}`}>
+                    {c.spots} spots left {c.status === 'filling' && '· Filling fast'}
+                  </span>
+                  <Link to="/admissions" className="btn-primary text-xs py-1.5 px-4 font-medium">
+                    Apply Now
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Tablet & Desktop Table Layout (>= sm) */}
+          <div className="hidden sm:block card overflow-hidden">
+            <div className="tbl-wrap">
+              <table className="tbl w-full">
+                <thead>
+                  <tr>
+                    <th>Program</th>
+                    <th>Start Date</th>
+                    <th>Mode</th>
+                    <th>Spots Left</th>
+                    <th className="text-right">Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {COHORTS.map((c) => (
+                    <tr key={c.program}>
+                      <td className="font-medium text-white">{c.program}</td>
+                      <td>{c.start}</td>
+                      <td><span className={`badge ${c.mode.includes('Online') ? 'badge-indigo' : 'badge-cyan'}`}>{c.mode}</span></td>
+                      <td>
+                        <span className={`badge ${c.status === 'filling' ? 'badge-amber' : 'badge-green'}`}>
+                          {c.spots} left {c.status === 'filling' && '— Filling fast'}
+                        </span>
+                      </td>
+                      <td className="text-right"><Link to="/admissions" className="btn-primary text-xs py-1.5 px-3">Apply</Link></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>
@@ -349,7 +389,7 @@ export default function HomePage() {
       {/* ── CTA BANNER ── */}
       <section className="section-pad">
         <div className="page-container">
-          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-brand-600 to-indigo-800 p-12 lg:p-16 text-center">
+          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-brand-600 to-indigo-800 p-8 sm:p-12 lg:p-16 text-center">
             <div className="absolute inset-0 grid-bg opacity-30"/>
             <div className="relative z-10">
               <h2 className="font-display text-3xl lg:text-4xl font-bold text-white mb-4">Ready to start your tech career?</h2>
