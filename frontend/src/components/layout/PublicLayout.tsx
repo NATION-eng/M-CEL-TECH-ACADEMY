@@ -167,14 +167,46 @@ export default function PublicLayout() {
               </ul>
             </div>
             <div>
-              <h4 className="text-xs font-semibold text-white mb-4 uppercase tracking-wider">Contact</h4>
+              <h4 className="text-xs font-semibold text-white mb-4 uppercase tracking-wider">Contact & Inquiries</h4>
               <ul className="space-y-2.5">
-                <li><a href={`mailto:${SOCIAL_LINKS.email}`} className="text-sm text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2"><Mail size={13} className="shrink-0"/> {SOCIAL_LINKS.email}</a></li>
-                <li><a href={`tel:${SOCIAL_LINKS.phoneIntl}`} className="text-sm text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-2"><Phone size={13} className="shrink-0"/> {SOCIAL_LINKS.phone}</a></li>
-                <li><a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" className="text-sm text-emerald-500/80 hover:text-emerald-400 transition-colors flex items-center gap-2"><MessageCircle size={13} className="shrink-0"/> Chat on WhatsApp</a></li>
+                <li><a href={`tel:${SOCIAL_LINKS.phoneIntl}`} className="text-sm text-slate-300 hover:text-white transition-colors flex items-center gap-2 font-medium"><Phone size={13} className="text-brand-400 shrink-0"/> {SOCIAL_LINKS.phone}</a></li>
+                <li><a href={SOCIAL_LINKS.whatsapp} target="_blank" rel="noopener noreferrer" className="text-sm text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-2 font-medium"><MessageCircle size={13} className="shrink-0"/> WhatsApp Support</a></li>
+                <li><a href="mailto:contact@mceltech.com" className="text-xs text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-2"><Mail size={12} className="shrink-0 text-slate-500"/> contact@mceltech.com</a></li>
+                <li><a href="mailto:training@mceltech.com" className="text-xs text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-2"><Mail size={12} className="shrink-0 text-slate-500"/> training@mceltech.com</a></li>
+                <li><a href="mailto:support@mceltech.com" className="text-xs text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-2"><Mail size={12} className="shrink-0 text-slate-500"/> support@mceltech.com</a></li>
               </ul>
             </div>
           </div>
+
+          {/* Dedicated Department Email Directory */}
+          <div className="pt-8 border-t border-white/[0.06] mb-8">
+            <div className="text-xs font-semibold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
+              <Mail size={14} className="text-brand-400"/> Official Department Email Directory
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+              <a href="mailto:contact@mceltech.com" className="card p-3.5 bg-ink-800/80 hover:bg-ink-800 hover:border-brand-500/40 transition-all border border-white/[0.06] flex flex-col group">
+                <span className="text-[11px] text-slate-400 font-medium">General Inquiries</span>
+                <span className="text-xs font-mono text-brand-400 group-hover:text-brand-300 mt-1 font-semibold">contact@mceltech.com</span>
+              </a>
+              <a href="mailto:training@mceltech.com" className="card p-3.5 bg-ink-800/80 hover:bg-ink-800 hover:border-brand-500/40 transition-all border border-white/[0.06] flex flex-col group">
+                <span className="text-[11px] text-slate-400 font-medium">Training & Admissions</span>
+                <span className="text-xs font-mono text-brand-400 group-hover:text-brand-300 mt-1 font-semibold">training@mceltech.com</span>
+              </a>
+              <a href="mailto:support@mceltech.com" className="card p-3.5 bg-ink-800/80 hover:bg-ink-800 hover:border-brand-500/40 transition-all border border-white/[0.06] flex flex-col group">
+                <span className="text-[11px] text-slate-400 font-medium">Technical Support</span>
+                <span className="text-xs font-mono text-brand-400 group-hover:text-brand-300 mt-1 font-semibold">support@mceltech.com</span>
+              </a>
+              <a href="mailto:customercare@mceltech.com" className="card p-3.5 bg-ink-800/80 hover:bg-ink-800 hover:border-brand-500/40 transition-all border border-white/[0.06] flex flex-col group">
+                <span className="text-[11px] text-slate-400 font-medium">Customer Care</span>
+                <span className="text-xs font-mono text-brand-400 group-hover:text-brand-300 mt-1 font-semibold">customercare@mceltech.com</span>
+              </a>
+              <a href="mailto:complain@mceltech.com" className="card p-3.5 bg-ink-800/80 hover:bg-ink-800 hover:border-brand-500/40 transition-all border border-white/[0.06] flex flex-col group">
+                <span className="text-[11px] text-slate-400 font-medium">Complaints & Feedback</span>
+                <span className="text-xs font-mono text-brand-400 group-hover:text-brand-300 mt-1 font-semibold">complain@mceltech.com</span>
+              </a>
+            </div>
+          </div>
+
           <div className="border-t border-white/[0.06] pt-6 flex flex-col sm:flex-row justify-between items-center gap-3">
             <p className="text-slate-600 text-xs">© {new Date().getFullYear()} M-CEL TECH ACADEMY. All rights reserved.</p>
             <div className="flex gap-5">
