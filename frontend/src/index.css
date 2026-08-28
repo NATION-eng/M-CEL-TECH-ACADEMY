@@ -8,9 +8,39 @@
   html { scroll-behavior: smooth; }
   body { @apply bg-ink-900 text-slate-100 font-body antialiased; font-size: 15px; line-height: 1.6; }
   h1,h2,h3,h4,h5,h6 { @apply font-display; }
-  ::-webkit-scrollbar { width: 4px; height: 4px; }
-  ::-webkit-scrollbar-track { background: #060C1A; }
-  ::-webkit-scrollbar-thumb { background: #1A2744; border-radius: 4px; }
+  /* Custom scrollbars */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #0B132B; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+  /* Print optimization: Only show the certificate slip when printing / saving PDF */
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 10mm;
+    }
+    html, body {
+      background: #ffffff !important;
+      color: #000000 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    header, footer, nav, aside, .print-hide {
+      display: none !important;
+    }
+    .print-only-certificate {
+      display: block !important;
+      position: relative !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-shadow: none !important;
+      border: none !important;
+      page-break-after: avoid !important;
+      page-break-inside: avoid !important;
+    }
+  }
 }
 
 @layer components {
