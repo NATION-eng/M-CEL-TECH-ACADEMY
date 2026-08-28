@@ -129,6 +129,7 @@ export default function App() {
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/verify" element={<VerifyCertPage />} />
         <Route path="/verify/:certNumber" element={<VerifyCertPage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/terms" element={<TermsPage />} />
