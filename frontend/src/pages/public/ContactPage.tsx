@@ -51,7 +51,7 @@ export default function ContactPage() {
                     <MapPin size={16} className="text-brand-400 flex-shrink-0 mt-0.5"/>
                     <div>
                       <div className="text-slate-500 text-xs mb-0.5">Campus Address</div>
-                      <div className="text-slate-300">24 Ada George Road, Port Harcourt, Rivers State, Nigeria</div>
+                      <div className="text-slate-300">2nd Floor, Salije Plaza, Ada George Road, Port Harcourt, Rivers State, Nigeria</div>
                     </div>
                   </div>
 

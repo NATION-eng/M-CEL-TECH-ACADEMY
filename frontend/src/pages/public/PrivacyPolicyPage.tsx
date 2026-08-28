@@ -92,7 +92,7 @@ export default function PrivacyPolicyPage() {
               <div className="p-4 rounded-xl bg-ink-700/60 border border-white/[0.06] space-y-1.5 text-xs font-mono">
                 <div>Email: <a href="mailto:customercare@mceltech.com" className="text-brand-400 hover:underline">customercare@mceltech.com</a> / <a href="mailto:contact@mceltech.com" className="text-brand-400 hover:underline">contact@mceltech.com</a></div>
                 <div>Phone: <a href={`tel:${SOCIAL_LINKS.phoneIntl}`} className="text-slate-300 hover:underline">{SOCIAL_LINKS.phone}</a></div>
-                <div>Address: 24 Ada George Road, Port Harcourt, Rivers State, Nigeria</div>
+                <div>Address: 2nd Floor, Salije Plaza, Ada George Road, Port Harcourt, Rivers State, Nigeria</div>
               </div>
             </div>
           </div>

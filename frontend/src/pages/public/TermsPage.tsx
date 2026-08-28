@@ -102,7 +102,7 @@ export default function TermsPage() {
                 <div>Complaints: <a href="mailto:complain@mceltech.com" className="text-brand-400 hover:underline">complain@mceltech.com</a></div>
                 <div>General: <a href="mailto:contact@mceltech.com" className="text-brand-400 hover:underline">contact@mceltech.com</a></div>
                 <div>Phone: <a href={`tel:${SOCIAL_LINKS.phoneIntl}`} className="text-slate-300 hover:underline">{SOCIAL_LINKS.phone}</a></div>
-                <div>Address: 24 Ada George Road, Port Harcourt, Rivers State, Nigeria</div>
+                <div>Address: 2nd Floor, Salije Plaza, Ada George Road, Port Harcourt, Rivers State, Nigeria</div>
               </div>
             </div>
           </div>
