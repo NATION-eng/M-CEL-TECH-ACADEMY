@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { CheckCircle2, ArrowRight, Code2, Sparkles, Bot, Palette, Clapperboard } from 'lucide-react'
+import { CheckCircle2, ArrowRight, Code2, Sparkles, Bot, Palette, Clapperboard, Briefcase, UserCheck } from 'lucide-react'
 
 const PROGRAMS = [
   { id:'software', icon: Code2, title:'Software Development', duration:'4–6 months', price:'₦80,000–₦250,000', mode:'Physical & Online', color:'from-blue-600 to-indigo-600',
@@ -15,6 +15,13 @@ const PROGRAMS = [
       { level:1, title:'AI Coding Foundations', weeks:'4 weeks', topics:['Prompt Engineering','GitHub Copilot','AI Code Review','Cursor IDE','Build with AI'] },
       { level:2, title:'AI Workflow Engineering', weeks:'5 weeks', topics:['Agentic Coding','LLM APIs','Automation Scripts','AI-powered backends','Deployment'] },
       { level:3, title:'AI Product Engineering', weeks:'6 weeks', topics:['Full AI Products','Monetization','Product Strategy','Launch','Capstone'] },
+    ]},
+  { id:'pm', icon: Briefcase, title:'Project Management', duration:'3–4 months', price:'₦80,000–₦150,000', mode:'Physical & Online', color:'from-emerald-600 to-teal-600',
+    desc:'Master industry-standard Agile methodologies, Scrum frameworks, budgeting, and team delivery.',
+    badges:[
+      { level:1, title:'PM Foundations', weeks:'4 weeks', topics:['Project Lifecycle','Agile & Waterfall','Stakeholder Management','Scope & Budgeting','Jira Basics'] },
+      { level:2, title:'Agile & Scrum Mastery', weeks:'5 weeks', topics:['Sprint Planning','Daily Standups','Risk Assessment','Kanban Workflows','Trello & Asana'] },
+      { level:3, title:'Leadership & Delivery', weeks:'5 weeks', topics:['Product Roadmapping','Quality Assurance','Team Leadership','Client Delivery','Capstone Project'] },
     ]},
   { id:'ai', icon: Bot, title:'Artificial Intelligence', duration:'5–6 months', price:'₦150,000–₦250,000', mode:'Physical & Online', color:'from-cyan-600 to-blue-600',
     desc:'Understand the mathematics and engineering behind AI systems. Build real models, not just use them.',
@@ -44,10 +51,37 @@ export default function ProgramsPage() {
     <div className="bg-ink-900 pt-20">
       <section className="section-pad">
         <div className="page-container">
-          <div className="text-center mb-16">
-            <div className="section-eyebrow justify-center">Training Programs</div>
-            <h1 className="font-display text-4xl lg:text-5xl font-bold text-white mb-5">5 Tracks. All Job-Ready.</h1>
-            <p className="text-slate-400 max-w-xl mx-auto text-lg">Every program follows the same badge-based structure — build skills level by level, prove mastery at each stage, earn a verifiable certificate.</p>
+          <div className="text-center mb-12">
+            <div className="section-eyebrow justify-center">Academic & Professional Training Directorate</div>
+            <h1 className="font-display text-4xl lg:text-5xl font-bold text-white mb-4">Official Training Modules & Tracks</h1>
+            <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
+              Structured, industry-approved badge levels engineered to build mastery from day one.
+            </p>
+
+            {/* Directorate Faculty Banner */}
+            <div className="mt-8 inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-6 bg-ink-800/80 border border-brand-500/30 rounded-2xl p-4 sm:px-6 shadow-xl text-left">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-brand-600/20 text-brand-400 flex items-center justify-center font-bold font-display">
+                  NC
+                </div>
+                <div>
+                  <div className="text-xs text-slate-400 font-medium">Program Lead</div>
+                  <div className="text-sm font-bold text-white tracking-wide">NATION CHIMEKA</div>
+                </div>
+              </div>
+
+              <div className="hidden sm:block w-px h-8 bg-white/10" />
+
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-cyan-600/20 text-cyan-400 flex items-center justify-center font-bold font-display">
+                  EJ
+                </div>
+                <div>
+                  <div className="text-xs text-slate-400 font-medium">Program Instructor</div>
+                  <div className="text-sm font-bold text-white tracking-wide">EKPOR JEPHTA</div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="space-y-16">
             {PROGRAMS.map(p => (

@@ -2,10 +2,8 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Target, Eye, Heart } from 'lucide-react'
 
 const TEAM = [
-  { name:'Dr. Emeka Okafor', role:'Founder & CEO', bg:'from-brand-600 to-cyan-600' },
-  { name:'Ngozi Adeleke', role:'Head of Curriculum', bg:'from-purple-600 to-brand-600' },
-  { name:'Tunde Balogun', role:'Lead Instructor', bg:'from-cyan-600 to-blue-600' },
-  { name:'Amaka Eze', role:'Student Success Lead', bg:'from-pink-600 to-rose-600' },
+  { name:'NATION CHIMEKA', role:'PROGRAM LEAD', bg:'from-brand-600 to-cyan-600' },
+  { name:'EKPOR JEPHTA', role:'PROGRAM INSTRUCTOR', bg:'from-cyan-600 to-indigo-600' },
 ]
 
 export default function AboutPage() {
@@ -41,15 +39,15 @@ export default function AboutPage() {
       <section className="section-pad">
         <div className="page-container">
           <div className="text-center mb-12">
-            <div className="section-eyebrow justify-center">The Team</div>
-            <h2 className="font-display text-3xl font-bold text-white">Built by practitioners</h2>
+            <div className="section-eyebrow justify-center">Academic & Professional Training Directorate</div>
+            <h2 className="font-display text-3xl font-bold text-white">Directorate Leadership & Faculty</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 max-w-xl mx-auto gap-6">
             {TEAM.map(t => (
-              <div key={t.name} className="card-hover p-6 text-center">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${t.bg} flex items-center justify-center text-white font-bold text-xl mx-auto mb-4`}>{t.name[0]}</div>
-                <div className="font-semibold text-white text-sm">{t.name}</div>
-                <div className="text-xs text-slate-500 mt-1">{t.role}</div>
+              <div key={t.name} className="card-hover p-7 text-center">
+                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${t.bg} flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 shadow-lg`}>{t.name.split(' ')[0][0]}{t.name.split(' ')[1] ? t.name.split(' ')[1][0] : ''}</div>
+                <div className="font-display font-bold text-white text-base tracking-wide">{t.name}</div>
+                <div className="badge badge-indigo text-xs mt-2 px-3 py-1 font-semibold">{t.role}</div>
               </div>
             ))}
           </div>

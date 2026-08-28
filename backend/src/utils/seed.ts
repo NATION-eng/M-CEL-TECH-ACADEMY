@@ -33,13 +33,13 @@ export const seedSuperAdmin = async (): Promise<void> => {
 export const seedDefaultAccounts = async (): Promise<void> => {
   const defaultPassword = process.env.SUPER_ADMIN_PASSWORD || 'ChangeMe@2025!';
 
-  // Seed Default Instructor
+  // Seed Default Instructor 1: Nation Chimeka (Program Lead)
   const instructorEmail = 'instructor@masterviewacademy.com';
   const instructorExists = await User.findOne({ email: instructorEmail });
   if (!instructorExists) {
     const user = await User.create({
-      firstName: 'Academy',
-      lastName: 'Instructor',
+      firstName: 'Nation',
+      lastName: 'Chimeka',
       email: instructorEmail,
       password: defaultPassword,
       role: 'instructor',
@@ -50,10 +50,33 @@ export const seedDefaultAccounts = async (): Promise<void> => {
     await Instructor.create({
       user: user._id,
       instructorId: generateInstructorId(),
-      bio: 'Lead Academy Instructor',
-      specializations: ['Full Stack Development', 'AI Engineering'],
+      bio: 'Program Lead — Academic & Professional Training Directorate',
+      specializations: ['Full Stack Development', 'AI Engineering', 'Software Architecture'],
     });
-    console.log(`✅ Default instructor seeded: ${instructorEmail}`);
+    console.log(`✅ Default program lead seeded: ${instructorEmail} (Nation Chimeka)`);
+  }
+
+  // Seed Default Instructor 2: Ekpor Jephta (Program Instructor)
+  const instructor2Email = 'instructor2@masterviewacademy.com';
+  const instructor2Exists = await User.findOne({ email: instructor2Email });
+  if (!instructor2Exists) {
+    const user2 = await User.create({
+      firstName: 'Ekpor',
+      lastName: 'Jephta',
+      email: instructor2Email,
+      password: defaultPassword,
+      role: 'instructor',
+      isActive: true,
+    });
+    const Instructor = (await import('../models/Instructor.model')).default;
+    const { generateInstructorId } = await import('./generateId');
+    await Instructor.create({
+      user: user2._id,
+      instructorId: generateInstructorId(),
+      bio: 'Program Instructor — Academic & Professional Training Directorate',
+      specializations: ['Web Engineering', 'UI/UX Design', 'Project Delivery'],
+    });
+    console.log(`✅ Default instructor seeded: ${instructor2Email} (Ekpor Jephta)`);
   }
 
   // Seed Default Admin
@@ -95,8 +118,7 @@ export const seedDefaultAccounts = async (): Promise<void> => {
 };
 
 /**
- * Seeds the five academy schools/departments/courses described in the PRD,
- * so the curriculum management UI has real structure to work with on first run.
+ * Seeds the Academic & Professional Training Directorate and its modules.
  * Safe to re-run — skips anything that already exists by slug.
  */
 export const seedAcademyStructure = async (): Promise<void> => {
@@ -108,7 +130,7 @@ export const seedAcademyStructure = async (): Promise<void> => {
 
   const structure = [
     {
-      school: 'School of Software Engineering',
+      school: 'Academic & Professional Training Directorate',
       departments: [
         {
           name: 'Software Development',
@@ -149,11 +171,6 @@ export const seedAcademyStructure = async (): Promise<void> => {
             deliveryMode: 'hybrid',
           },
         },
-      ],
-    },
-    {
-      school: 'School of AI & Data Science',
-      departments: [
         {
           name: 'Artificial Intelligence',
           course: {
@@ -167,11 +184,6 @@ export const seedAcademyStructure = async (): Promise<void> => {
             deliveryMode: 'hybrid',
           },
         },
-      ],
-    },
-    {
-      school: 'School of Creative Arts',
-      departments: [
         {
           name: 'Graphic Design',
           course: {
