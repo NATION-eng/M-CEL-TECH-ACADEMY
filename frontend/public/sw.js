@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mcel-tech-cache-v1';
+const CACHE_NAME = 'mcel-tech-cache-v2';
 const OFFLINE_URLS = [
   '/',
   '/index.html',
@@ -7,6 +7,22 @@ const OFFLINE_URLS = [
   '/icon-192.png',
   '/icon-512.png'
 ];
+
+// Fast fetch helper with timeout to never block browser event loops
+const fetchWithTimeout = (request, timeoutMs = 3000) => {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('Fetch timeout')), timeoutMs);
+    fetch(request)
+      .then((response) => {
+        clearTimeout(timer);
+        resolve(response);
+      })
+      .catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
+};
 
 // Install: Cache offline core shell
 self.addEventListener('install', (event) => {
@@ -17,7 +33,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Activate: Clean up old caches and take control immediately
+// Activate: Clean up old caches and claim clients immediately
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -42,10 +58,10 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // API calls: Network-first, fallback to cache if available
+  // API calls: Network-first with fast fallback to cache
   if (url.pathname.startsWith('/api/')) {
     event.respondWith(
-      fetch(request)
+      fetchWithTimeout(request, 4000)
         .then((response) => {
           if (response && response.status === 200) {
             const clone = response.clone();
@@ -58,21 +74,22 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static assets & navigation: Stale-While-Revalidate / Cache-first
+  // Static assets & navigation: Stale-While-Revalidate with instant cache response
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
-      const fetchPromise = fetch(request).then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
-          const clone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
-        }
-        return networkResponse;
-      }).catch(() => {
-        // If navigation fails completely, return cached index.html
-        if (request.mode === 'navigate') {
-          return caches.match('/index.html');
-        }
-      });
+      const fetchPromise = fetchWithTimeout(request, 3000)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const clone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          if (request.mode === 'navigate') {
+            return caches.match('/index.html');
+          }
+        });
 
       return cachedResponse || fetchPromise;
     })

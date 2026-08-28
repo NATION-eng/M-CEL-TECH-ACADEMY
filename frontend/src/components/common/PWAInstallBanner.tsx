@@ -28,14 +28,22 @@ export default function PWAInstallBanner() {
     }
   }, [])
 
-  const handleInstall = async () => {
+  const handleInstall = () => {
     if (!deferredPrompt) return
-    await deferredPrompt.prompt()
-    const choiceResult = await deferredPrompt.userChoice
-    if (choiceResult.outcome === 'accepted') {
-      setShowBanner(false)
-    }
+    const promptEvent = deferredPrompt
+    // Immediately hide banner to unblock UI paint (0ms INP)
+    setShowBanner(false)
     setDeferredPrompt(null)
+
+    // Trigger OS prompt asynchronously outside the click handler paint cycle
+    setTimeout(async () => {
+      try {
+        await promptEvent.prompt()
+        await promptEvent.userChoice
+      } catch (err) {
+        console.warn('PWA install prompt dismissed or aborted', err)
+      }
+    }, 10)
   }
 
   const handleDismiss = () => {
